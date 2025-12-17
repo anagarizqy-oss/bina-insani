@@ -2,7 +2,7 @@
 session_start();
 include 'config/db.php';
 include 'includes/csrf.php';
-include 'includes/navbar.php';
+
 $error = '';
 $success = '';
 
@@ -89,34 +89,30 @@ $csrf_token = generate_token();
 ?>
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login / Daftar - SMA BINA INSANI</title>
     <link rel="stylesheet" href="assets/style.css">
     <style>
-        /* === BODY & GRADIENT === */
+        /* === BODY TANPA GRADIENT === */
         body {
             background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            min-height: 100vh;
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
         }
-
-
+        
         /* === LOGIN CONTAINER === */
         .login-container {
             background: white;
             border-radius: 16px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
             padding: 2.5rem;
             width: 90%;
             max-width: 500px;
             text-align: center;
-            margin-top: 2rem;
+            margin: 3rem auto 4rem; /* jarak dari navbar */
             animation: fadeInUp 0.8s ease-out forwards;
             opacity: 0;
             transform: translateY(30px);
@@ -127,7 +123,6 @@ $csrf_token = generate_token();
                 opacity: 0;
                 transform: translateY(30px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -195,9 +190,7 @@ $csrf_token = generate_token();
         }
 
         /* === FORM INPUT === */
-        input,
-        select,
-        button {
+        input, select, button {
             width: 100%;
             padding: 12px;
             margin: 8px 0;
@@ -251,8 +244,10 @@ $csrf_token = generate_token();
         }
     </style>
 </head>
-
 <body>
+    <!-- NAVBAR DARI INCLUDE -->
+    <?php include 'includes/navbar.php'; ?>
+
     <!-- LOGIN CONTAINER -->
     <div class="login-container">
         <h2>SMA BINA INSANI WONOGIRI</h2>
@@ -265,13 +260,11 @@ $csrf_token = generate_token();
             <div class="alert success"><?= $success ?></div>
         <?php endif; ?>
 
-        <!-- Tab Navigation -->
         <div class="tabs">
             <div class="tab active" data-tab="login">Login Akun</div>
             <div class="tab" data-tab="register">Daftar Akun Baru</div>
         </div>
 
-        <!-- Form Login -->
         <div class="tab-content active" id="login">
             <form method="POST">
                 <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
@@ -284,7 +277,6 @@ $csrf_token = generate_token();
             </div>
         </div>
 
-        <!-- Form Registrasi -->
         <div class="tab-content" id="register">
             <form method="POST">
                 <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
@@ -315,7 +307,6 @@ $csrf_token = generate_token();
             document.getElementById(tabName).classList.add('active');
         }
 
-        // Aktifkan tab pertama saat load
         document.addEventListener('DOMContentLoaded', () => {
             const activeTab = document.querySelector('.tab.active');
             if (activeTab) {
@@ -325,5 +316,4 @@ $csrf_token = generate_token();
         });
     </script>
 </body>
-
 </html>
