@@ -89,6 +89,7 @@ $csrf_token = generate_token();
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -105,12 +106,12 @@ $csrf_token = generate_token();
             align-items: flex-start;
         }
 
-        
+
         /* === LOGIN CONTAINER === */
         .login-container {
             background: white;
             border-radius: 16px;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
             padding: 2.5rem;
             width: 90%;
             max-width: 500px;
@@ -126,6 +127,7 @@ $csrf_token = generate_token();
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -193,7 +195,9 @@ $csrf_token = generate_token();
         }
 
         /* === FORM INPUT === */
-        input, select, button {
+        input,
+        select,
+        button {
             width: 100%;
             padding: 12px;
             margin: 8px 0;
@@ -247,6 +251,7 @@ $csrf_token = generate_token();
         }
     </style>
 </head>
+
 <body>
     <!-- LOGIN CONTAINER -->
     <div class="login-container">
@@ -320,4 +325,5 @@ $csrf_token = generate_token();
         });
     </script>
 </body>
+
 </html>
