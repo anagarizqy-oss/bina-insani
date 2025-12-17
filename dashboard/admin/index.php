@@ -30,6 +30,8 @@ $count_ekskul = countRows($pdo, 'ekstrakurikuler');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin - SMA BINA INSANI</title>
     <link rel="stylesheet" href="../../assets/admin.css">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
@@ -43,28 +45,28 @@ $count_ekskul = countRows($pdo, 'ekstrakurikuler');
 
         <div class="sidebar-menu">
             <a href="index.php" class="menu-item active">
-                <span>🏠</span> <span>Dashboard</span>
+                <i class="fas fa-home"></i> <span>Dashboard</span>
             </a>
             <a href="data_siswa.php" class="menu-item">
-                <span>🎓</span> <span>Data Siswa</span>
+                <i class="fas fa-user-graduate"></i> <span>Data Siswa</span>
             </a>
             <a href="data_guru.php" class="menu-item">
-                <span>👨‍🏫</span> <span>Data Guru</span>
+                <i class="fas fa-chalkboard-teacher"></i> <span>Data Guru</span>
             </a>
             <a href="berita.php" class="menu-item">
-                <span>📰</span> <span>Kelola Berita</span>
+                <i class="fas fa-newspaper"></i> <span>Kelola Berita</span>
             </a>
             <a href="ekstrakurikuler.php" class="menu-item">
-                <span>⚽</span> <span>Ekstrakurikuler</span>
+                <i class="fas fa-futbol"></i> <span>Ekstrakurikuler</span>
             </a>
             <a href="profil.php" class="menu-item">
-                <span>👤</span> <span>Profil Saya</span>
+                <i class="fas fa-user"></i> <span>Profil Saya</span>
             </a>
         </div>
 
         <div class="sidebar-footer">
             <a href="../../logout.php" class="logout-btn">
-                <span>🚪 Logout</span>
+                <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
             </a>
         </div>
     </div>
