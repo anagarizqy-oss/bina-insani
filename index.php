@@ -7,6 +7,7 @@ $berita = $pdo->query("SELECT judul, isi, tanggal FROM berita ORDER BY tanggal D
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +21,7 @@ $berita = $pdo->query("SELECT judul, isi, tanggal FROM berita ORDER BY tanggal D
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -60,7 +61,8 @@ $berita = $pdo->query("SELECT judul, isi, tanggal FROM berita ORDER BY tanggal D
             gap: 1rem;
         }
 
-        .btn-ppdb, .btn-login-nav {
+        .btn-ppdb,
+        .btn-login-nav {
             padding: 0.5rem 1.2rem;
             border-radius: 30px;
             font-weight: bold;
@@ -141,7 +143,7 @@ $berita = $pdo->query("SELECT judul, isi, tanggal FROM berita ORDER BY tanggal D
 
         .btn-login-hero:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
 
         /* BERITA & FOOTER */
@@ -162,7 +164,7 @@ $berita = $pdo->query("SELECT judul, isi, tanggal FROM berita ORDER BY tanggal D
             padding: 1.5rem;
             margin: 1.2rem 0;
             border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
 
         .news-date {
@@ -185,13 +187,16 @@ $berita = $pdo->query("SELECT judul, isi, tanggal FROM berita ORDER BY tanggal D
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             60% {
                 opacity: 1;
                 transform: translateY(-5px);
             }
+
             80% {
                 transform: translateY(3px);
             }
+
             100% {
                 opacity: 1;
                 transform: translateY(0);
@@ -224,51 +229,52 @@ $berita = $pdo->query("SELECT judul, isi, tanggal FROM berita ORDER BY tanggal D
         }
     </style>
 </head>
-<body>
-<!-- NAVBAR BARU -->
-<nav class="navbar-new">
-    <div class="nav-left">
-        <a href="index.php">Beranda</a>
 
-        <!-- PROFIL KAMI -->
-        <div class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn" onclick="toggleDropdown('profil-kami')">
-                Profil Kami ▾
-            </a>
-            <div id="profil-kami" class="dropdown-content">
-                <a href="profil-sekolah.php">Profil Sekolah</a>
-                <a href="identitas.php">Identitas Sekolah</a>
-                <a href="visimisi.php">Visi & Misi</a>
-                <a href="sejarah.php">Sejarah Singkat</a>
-                <a href="struktur.php">Struktur Organisasi</a>
-                <a href="fasilitas.php">Fasilitas</a>
-                <a href="staf-pengajar.php">Staf Pengajar</a>
-                <a href="tenaga-kependidikan.php">Staf Tenaga Kependidikan</a>
+<body>
+    <!-- NAVBAR BARU -->
+    <nav class="navbar-new">
+        <div class="nav-left">
+            <a href="index.php">Beranda</a>
+
+            <!-- PROFIL KAMI -->
+            <div class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn" onclick="toggleDropdown('profil-kami')">
+                    Profil Kami ▾
+                </a>
+                <div id="profil-kami" class="dropdown-content">
+                    <a href="profil-sekolah.php">Profil Sekolah</a>
+                    <a href="identitas.php">Identitas Sekolah</a>
+                    <a href="visimisi.php">Visi & Misi</a>
+                    <a href="sejarah.php">Sejarah Singkat</a>
+                    <a href="struktur.php">Struktur Organisasi</a>
+                    <a href="fasilitas.php">Fasilitas</a>
+                    <a href="staf-pengajar.php">Staf Pengajar</a>
+                    <a href="tenaga-kependidikan.php">Staf Tenaga Kependidikan</a>
+                </div>
             </div>
+            <!-- AGENDA -->
+            <div class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn" onclick="toggleDropdown('agenda')">
+                    Agenda ▾
+                </a>
+                <div id="agenda" class="dropdown-content">
+                    <a href="agenda-kegiatan.php">Agenda Kegiatan</a>
+                    <a href="kalender-akademik.php">Kalender Akademik</a>
+                    <a href="jadwal-uji.php">Jadwal Ujian</a>
+                    <a href="libur-nasional.php">Libur Nasional</a>
+                </div>
+            </div>
+            <a href="ekskul/ekstrakulikuler.php">Ekstrakurikuler</a>
+            <a href="#info">Informasi</a>
+            <a href="#galeri">Galeri</a>
+            <a href="#masukan">Masukan & Saran</a>
+            <a href="kontak.php">Kontak</a>
         </div>
-    <!-- AGENDA -->
-    <div class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn" onclick="toggleDropdown('agenda')">
-            Agenda ▾
-        </a>
-        <div id="agenda" class="dropdown-content">
-            <a href="#agenda-kegiatan">Agenda Kegiatan</a>
-            <a href="#kalender-akademik">Kalender Akademik</a>
-            <a href="#jadwal-uji">Jadwal Ujian</a>
-            <a href="#libur-nasional">Libur Nasional</a>
+        <div class="nav-right">
+            <a href="login.php" class="btn-login-nav">Login Akun</a>
+            <a href="#" class="btn-ppdb">PPDB</a>
         </div>
-    </div>
-        <a href="#ekstra">Ekstrakurikuler</a>
-        <a href="#info">Informasi</a>
-        <a href="#galeri">Galeri</a>
-        <a href="#masukan">Masukan & Saran</a>
-        <a href="kontak.php">Kontak</a>
-    </div>
-    <div class="nav-right">
-        <a href="login.php" class="btn-login-nav">Login Akun</a>
-        <a href="#" class="btn-ppdb">PPDB</a>
-    </div>
-</nav>
+    </nav>
     <!-- HERO SECTION -->
     <div class="hero">
         <img src="assets/sekolah.png" alt="SMA Bina Insani Wonogiri">
@@ -282,11 +288,11 @@ $berita = $pdo->query("SELECT judul, isi, tanggal FROM berita ORDER BY tanggal D
         <h2>Berita Terbaru</h2>
         <?php if ($berita->rowCount() > 0): ?>
             <?php while ($row = $berita->fetch()): ?>
-            <div class="news-item">
-                <div class="news-date"><?= htmlspecialchars($row['tanggal']) ?></div>
-                <h3><?= htmlspecialchars($row['judul']) ?></h3>
-                <p><?= nl2br(htmlspecialchars(substr($row['isi'], 0, 200))) ?>...</p>
-            </div>
+                <div class="news-item">
+                    <div class="news-date"><?= htmlspecialchars($row['tanggal']) ?></div>
+                    <h3><?= htmlspecialchars($row['judul']) ?></h3>
+                    <p><?= nl2br(htmlspecialchars(substr($row['isi'], 0, 200))) ?>...</p>
+                </div>
             <?php endwhile; ?>
         <?php else: ?>
             <p style="text-align: center; color: #888;">Belum ada berita.</p>
@@ -307,32 +313,33 @@ $berita = $pdo->query("SELECT judul, isi, tanggal FROM berita ORDER BY tanggal D
         <a href="kontak.php" style="color: #2575fc; text-decoration: none; margin-top: 10px; display: inline-block;">Lihat Lokasi & Kontak</a>
     </footer>
     <script>
-function toggleDropdown(id) {
-    const dropdown = document.getElementById(id);
-    
-    // Tutup semua dropdown lain yang sedang terbuka
-    document.querySelectorAll('.dropdown-content').forEach(el => {
-        if (el.id !== id) {
-            el.classList.remove('show');
+        function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+
+            // Tutup semua dropdown lain yang sedang terbuka
+            document.querySelectorAll('.dropdown-content').forEach(el => {
+                if (el.id !== id) {
+                    el.classList.remove('show');
+                }
+            });
+
+            // Toggle class 'show' pada dropdown yang diklik
+            dropdown.classList.toggle('show');
         }
-    });
 
-    // Toggle class 'show' pada dropdown yang diklik
-    dropdown.classList.toggle('show');
-}
-
-// Tutup dropdown saat klik di luar area menu
-window.onclick = function(event) {
-    if (!event.target.matches('.dropbtn')) {
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        for (var i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
+        // Tutup dropdown saat klik di luar area menu
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
             }
         }
-    }
-}
-</script>
+    </script>
 </body>
+
 </html>
