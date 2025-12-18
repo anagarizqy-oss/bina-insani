@@ -124,10 +124,33 @@ $csrf_token = generate_token();
 
         /* HERO SECTION */
         .hero {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            background: url('assets/bangunan.jpeg') no-repeat center center;
+            background-size: cover;
             color: white;
             text-align: center;
             padding: 5rem 2rem 4rem;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+
+            background: rgba(0, 0, 0, 1);
+
+
+            /* Overlay gelap agar teks terbaca */
+            z-index: 1;
+        }
+
+        .hero>* {
+            position: relative;
+            z-index: 2;
         }
 
         .hero img {
@@ -297,8 +320,8 @@ $csrf_token = generate_token();
                     <a href="libur-nasional.php">Libur Nasional</a>
                 </div>
             </div>
-            <a href="ekstrakulikuler.php">Ekstrakurikuler</a>
-            <a href="#info">Informasi</a>
+            <a href="ekstrakurikuler.php">Ekstrakurikuler</a>
+            <a href="info.php">Informasi</a>
             <a href="#galeri">Galeri</a>
             <a href="masukan.php">Masukan & Saran</a>
             <a href="kontak.php">Kontak</a>

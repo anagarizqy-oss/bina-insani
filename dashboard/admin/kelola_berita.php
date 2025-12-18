@@ -45,6 +45,8 @@ $csrf_token = generate_token();
     <link rel="stylesheet" href="../../assets/admin.css">
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tiny.cloud/1/73g6ti6vu2fak6uikd05gzldad4bpmzf7i39m09kw1qa7oqb/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
 </head>
 
 <body>
@@ -150,6 +152,46 @@ $csrf_token = generate_token();
             <?php endif; ?>
         </div>
     </div>
+<script>
+tinymce.init({
+    selector: 'textarea[name="isi"]',
+    height: 350,
+    menubar: false,
+
+    plugins: [
+        'lists link image table code preview'
+    ],
+
+    toolbar: `
+        undo redo |
+        fontfamily fontsize |
+        bold italic underline |
+        alignleft aligncenter alignright |
+        bullist numlist |
+        link image |
+        preview code
+    `,
+
+    font_family_formats: `
+        Arial=arial,helvetica,sans-serif;
+        Times New Roman=times new roman,times;
+        Georgia=georgia,serif;
+        Verdana=verdana,geneva,sans-serif;
+        Tahoma=tahoma,arial,sans-serif;
+        Courier New=courier new,courier,monospace
+    `,
+
+    fontsize_formats: '10px 12px 14px 16px 18px 24px 36px',
+
+    content_style: `
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+    `
+});
+</script>
+
 </body>
 
 </html>

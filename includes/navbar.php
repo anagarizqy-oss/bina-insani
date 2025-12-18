@@ -36,7 +36,7 @@
         </div>
 
         <a href="ekstrakurikuler.php">Ekstrakurikuler</a>
-        <a href="informasi.php">Informasi</a>
+        <a href="info.php">Informasi</a>
         <a href="#galeri">Galeri</a>
         <a href="#masukan">Masukan & Saran</a>
         <a href="kontak.php">Kontak</a>
