@@ -172,8 +172,8 @@ $csrf_token = generate_token();
             /* Extra bold */
             text-shadow:
                 0 0 8px rgba(0, 0, 0, 0.8),
-                0 0 12px rgba(0, 0, 0, 0.6),
-                0 0 2px #fff;
+                0 0 12px rgba(0, 0, 0, 0.52),
+                0 0 8px #ffffffff;
             /* Outline putih tipis */
             margin-bottom: 1rem;
             opacity: 0;
