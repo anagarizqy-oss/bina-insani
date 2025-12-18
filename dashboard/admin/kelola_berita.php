@@ -28,7 +28,7 @@ if ($_POST && isset($_POST['tambah_berita'])) {
 if (isset($_GET['hapus'])) {
     $id = (int)$_GET['hapus'];
     $pdo->prepare("DELETE FROM berita WHERE id = ?")->execute([$id]);
-    header("Location: kelola.php");
+    header("Location: kelola_berita.php");
     exit;
 }
 
@@ -66,7 +66,7 @@ $csrf_token = generate_token();
             <a href="data_guru.php" class="menu-item">
                 <i class="fas fa-chalkboard-teacher"></i> <span>Data Guru</span>
             </a>
-            <a href="kelola.php" class="menu-item active">
+            <a href="kelola_berita.php" class="menu-item active">
                 <i class="fas fa-newspaper"></i> <span>Kelola Berita</span>
             </a>
             <a href="kelola_ekstrakurikuler.php" class="menu-item">

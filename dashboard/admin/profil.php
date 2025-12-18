@@ -27,7 +27,7 @@ $user = $stmt->fetch();
         </div>
         <div class="nav-links">
             <a href="index.php">Dashboard</a>
-            <a href="kelola.php">Berita</a>
+            <a href="kelola_berita.php">Berita</a>
             <a href="profil.php" style="border-bottom: 2px solid white;">Profil</a>
             <a href="../../logout.php">Logout</a>
         </div>
