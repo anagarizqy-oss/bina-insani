@@ -21,14 +21,15 @@ body {
 .container {
     background: white;
     border-radius: 16px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
     padding: 2.5rem;
     width: 90%;
     max-width: 450px;
     text-align: center;
 }
 
-h1, h2 {
+h1,
+h2 {
     color: #2575fc;
     margin-bottom: 1.2rem;
 }
@@ -38,7 +39,9 @@ p.subtitle {
     margin-bottom: 1.5rem;
 }
 
-input, select, button {
+input,
+select,
+button {
     width: 100%;
     padding: 12px;
     margin: 8px 0;
@@ -85,7 +88,7 @@ button:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-left {
@@ -137,7 +140,7 @@ button:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -149,7 +152,7 @@ button:hover {
     flex-wrap: wrap;
 }
 
-.nav-left > a {
+.nav-left>a {
     color: white;
     text-decoration: none;
     font-weight: 500;
@@ -157,7 +160,7 @@ button:hover {
     padding: 0.4rem 0.6rem;
 }
 
-.nav-left > a::after {
+.nav-left>a::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -168,7 +171,7 @@ button:hover {
     transition: width 0.3s;
 }
 
-.nav-left > a:hover::after {
+.nav-left>a:hover::after {
     width: 100%;
 }
 
@@ -178,7 +181,8 @@ button:hover {
     align-items: center;
 }
 
-.btn-ppdb, .btn-login-nav {
+.btn-ppdb,
+.btn-login-nav {
     padding: 0.5rem 1.2rem;
     border-radius: 30px;
     font-weight: bold;
@@ -223,32 +227,30 @@ button:hover {
     cursor: pointer;
 }
 
-/* Pastikan dropdown content punya z-index tinggi dan class .show untuk JS */
 .dropdown-content {
-    display: none; /* Sembunyi secara default */
+    display: none;
     position: absolute;
-    background-color: #ffffff;
-    min-width: 220px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 9999; /* Sangat penting agar berada di atas elemen lain */
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    /* Pastikan di atas segalanya */
     border-radius: 8px;
-    margin-top: 10px;
-    border: 1px solid #eee;
+    top: 100%;
+    /* Posisi tepat di bawah button */
+    left: 0;
 }
 
-/* Class ini yang akan dipicu oleh JavaScript */
 .dropdown-content.show {
     display: block;
+    /* Muncul ketika class .show ada */
 }
 
 .dropdown-content a {
-    color: #333 !important; /* Paksa warna teks agar terlihat */
+    color: #333 !important;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-    font-size: 14px;
-    text-align: left;
-    transition: 0.3s;
 }
 
 .dropdown-content a:hover {
@@ -274,7 +276,7 @@ button:hover {
     padding: 1.5rem;
     margin: 1.5rem 0;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 table {
@@ -283,7 +285,8 @@ table {
     margin-top: 1rem;
 }
 
-th, td {
+th,
+td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #eee;
@@ -349,7 +352,7 @@ th {
 
 .btn-login-hero:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 .section {
@@ -369,7 +372,7 @@ th {
     padding: 1.5rem;
     margin: 1.2rem 0;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .news-date {
@@ -393,13 +396,16 @@ footer {
         opacity: 0;
         transform: translateY(20px);
     }
+
     60% {
         opacity: 1;
         transform: translateY(-5px);
     }
+
     80% {
         transform: translateY(3px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);
@@ -409,6 +415,7 @@ footer {
 
 /* === RESPONSIF === */
 @media (max-width: 768px) {
+
     /* Navbar publik */
     .nav-left {
         gap: 0.8rem;
@@ -416,7 +423,7 @@ footer {
         align-items: flex-start;
     }
 
-    .nav-left > a,
+    .nav-left>a,
     .dropbtn {
         font-size: 0.95rem;
         padding: 0.5rem 0.8rem;

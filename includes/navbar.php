@@ -35,8 +35,8 @@
             </div>
         </div>
 
-        <a href="#ekstra">Ekstrakurikuler</a>
-        <a href="#info">Informasi</a>
+        <a href="ekstrakurikuler.php">Ekstrakurikuler</a>
+        <a href="informasi.php">Informasi</a>
         <a href="#galeri">Galeri</a>
         <a href="#masukan">Masukan & Saran</a>
         <a href="kontak.php">Kontak</a>
@@ -48,29 +48,29 @@
 </nav>
 
 <script>
-function toggleDropdown(id) {
-    // Tutup semua dropdown dulu
-    document.querySelectorAll('.dropdown-content').forEach(el => {
-        if (el.id !== id) {
-            el.style.display = 'none';
+    function toggleDropdown(id) {
+        // Tutup semua dropdown dulu
+        document.querySelectorAll('.dropdown-content').forEach(el => {
+            if (el.id !== id) {
+                el.style.display = 'none';
+            }
+        });
+
+        // Toggle dropdown yang diklik
+        const dropdown = document.getElementById(id);
+        if (dropdown.style.display === 'block') {
+            dropdown.style.display = 'none';
+        } else {
+            dropdown.style.display = 'block';
+        }
+    }
+
+    // Tutup dropdown saat klik di luar
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown')) {
+            document.querySelectorAll('.dropdown-content').forEach(el => {
+                el.style.display = 'none';
+            });
         }
     });
-
-    // Toggle dropdown yang diklik
-    const dropdown = document.getElementById(id);
-    if (dropdown.style.display === 'block') {
-        dropdown.style.display = 'none';
-    } else {
-        dropdown.style.display = 'block';
-    }
-}
-
-// Tutup dropdown saat klik di luar
-document.addEventListener('click', function(e) {
-    if (!e.target.closest('.dropdown')) {
-        document.querySelectorAll('.dropdown-content').forEach(el => {
-            el.style.display = 'none';
-        });
-    }
-});
 </script>
