@@ -10,12 +10,14 @@ $user = $stmt->fetch();
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil Admin - SMA BINA INSANI</title>
     <link rel="stylesheet" href="../../assets/style.css">
 </head>
+
 <body>
     <!-- Navbar dengan Logo -->
     <nav class="navbar">
@@ -25,7 +27,7 @@ $user = $stmt->fetch();
         </div>
         <div class="nav-links">
             <a href="index.php">Dashboard</a>
-            <a href="berita.php">Berita</a>
+            <a href="kelola_berita.php">Berita</a>
             <a href="profil.php" style="border-bottom: 2px solid white;">Profil</a>
             <a href="../../logout.php">Logout</a>
         </div>
@@ -41,4 +43,5 @@ $user = $stmt->fetch();
         </div>
     </div>
 </body>
+
 </html>

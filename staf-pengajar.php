@@ -10,7 +10,7 @@ include 'config/db.php';
     <link rel="stylesheet" href="assets/style.css">
     <style>
         body {
-            background: #f9fbff;
+            background: url('assets/foto_guru.jpeg') ;
             margin: 0;
             padding: 0;
         }

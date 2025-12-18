@@ -124,10 +124,33 @@ $csrf_token = generate_token();
 
         /* HERO SECTION */
         .hero {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            background: url('assets/bangunan.jpeg') no-repeat center center;
+            background-size: cover;
             color: white;
             text-align: center;
             padding: 5rem 2rem 4rem;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+            .hero::before {
+                background: rgba(0, 0, 0, 0.7);
+                /* Lebih gelap */
+            }
+
+            z-index: 1;
+        }
+
+        .hero>* {
+            position: relative;
+            z-index: 2;
         }
 
         .hero img {
@@ -145,6 +168,13 @@ $csrf_token = generate_token();
 
         .hero h1 {
             font-size: 2.5rem;
+            font-weight: 800;
+            /* Extra bold */
+            text-shadow:
+                0 0 8px rgba(0, 0, 0, 0.8),
+                0 0 12px rgba(0, 0, 0, 0.6),
+                0 0 2px #fff;
+            /* Outline putih tipis */
             margin-bottom: 1rem;
             opacity: 0;
             transform: translateY(20px);
@@ -153,6 +183,12 @@ $csrf_token = generate_token();
 
         .hero p {
             font-size: 1.2rem;
+            font-weight: 700;
+            text-shadow:
+                0 0 8px rgba(0, 0, 0, 0.8),
+                0 0 12px rgba(0, 0, 0, 0.6),
+                0 0 2px #fff;
+            /* Outline putih tipis */
             max-width: 700px;
             margin: 0 auto 1.5rem;
             opacity: 0;
@@ -249,10 +285,12 @@ $csrf_token = generate_token();
 
             .hero h1 {
                 font-size: 2rem;
+                text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
             }
 
-            .hero {
-                padding: 4rem 1.5rem 3rem;
+            .hero p {
+                font-size: 1rem;
+                text-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
             }
         }
 
@@ -297,8 +335,8 @@ $csrf_token = generate_token();
                     <a href="libur-nasional.php">Libur Nasional</a>
                 </div>
             </div>
-            <a href="ekstrakulikuler.php">Ekstrakurikuler</a>
-            <a href="#info">Informasi</a>
+            <a href="ekstrakurikuler.php">Ekstrakurikuler</a>
+            <a href="info.php">Informasi</a>
             <a href="#galeri">Galeri</a>
             <a href="masukan.php">Masukan & Saran</a>
             <a href="kontak.php">Kontak</a>
