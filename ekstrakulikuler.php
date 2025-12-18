@@ -1,15 +1,15 @@
 <?php
 // ekskul/ekstrakurikuler.php
 include 'config/db.php';      // ✅ Naik ke folder utama
- include 'includes/navbar.php';
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ekstrakurikuler - SMA BINA INSANI WONOGIRI</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/style.css">
     <style>
         /* === BODY DENGAN GRADIENT SAMA SEPERTI INDEX.PHP === */
         body {
@@ -31,7 +31,7 @@ include 'config/db.php';      // ✅ Naik ke folder utama
             text-align: center;
             margin-bottom: 1.5rem;
             font-size: 2rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         /* === LAYOUT 2 KOLOM === */
@@ -49,7 +49,7 @@ include 'config/db.php';      // ✅ Naik ke folder utama
         .sidebar {
             background: white;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             padding: 1.5rem;
             max-width: 350px;
             width: 100%;
@@ -95,14 +95,14 @@ include 'config/db.php';      // ✅ Naik ke folder utama
         .ekskul-card {
             background: white;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             overflow: hidden;
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
         .ekskul-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
 
         .ekskul-image {
@@ -144,7 +144,12 @@ include 'config/db.php';      // ✅ Naik ke folder utama
         }
     </style>
 </head>
+
 <body>
+    <!-- NAVBAR -->
+
+    <?php include 'includes/navbar.php'; ?> <!-- ✅ Sudah benar -->
+
     <!-- CONTENT -->
     <div class="content">
         <h1>Ekstrakurikuler</h1>
@@ -238,4 +243,5 @@ include 'config/db.php';      // ✅ Naik ke folder utama
         </div>
     </div>
 </body>
+
 </html>
