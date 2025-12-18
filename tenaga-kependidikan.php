@@ -62,7 +62,8 @@ include 'config/db.php';
     </style>
 </head>
 <body>
-    <?php include 'includes/navbar.php'; ?>
+<?php include 'includes/navbar.php'; ?>
+
 
     <div class="content">
         <h1>Staf Tenaga Kependidikan</h1>

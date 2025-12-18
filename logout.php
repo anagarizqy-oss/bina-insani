@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 include 'config/db.php';
@@ -15,3 +16,11 @@ if (isset($_SESSION['login_log_id'])) {
 session_destroy();
 header("Location: login.php");
 exit;
+=======
+<?php
+session_start();
+session_destroy();
+header("Location: login.php");
+exit;
+?>
+

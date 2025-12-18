@@ -70,6 +70,7 @@ include 'config/db.php';
 <body>
     <?php include 'includes/navbar.php'; ?>
 
+
     <div class="content">
         <h1>Staf Pengajar</h1>
         <div class="section">
