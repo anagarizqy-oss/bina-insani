@@ -13,7 +13,7 @@ if ($_POST && isset($_POST['tambah_berita'])) {
         $message = "<div class='alert error'>Permintaan tidak valid.</div>";
     } else {
         $judul = clean($_POST['judul']);
-        $isi = clean($_POST['isi']);
+        $isi = $_POST['isi'];
         if (!empty($judul) && !empty($isi)) {
             $stmt = $pdo->prepare("INSERT INTO berita (judul, isi) VALUES (?, ?)");
             $stmt->execute([$judul, $isi]);
@@ -110,7 +110,7 @@ $csrf_token = generate_token();
 
                 <div style="margin-bottom: 1rem;">
                     <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Isi Berita</label>
-                    <textarea name="isi" rows="5" placeholder="Tulis isi berita di sini..." required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px;"></textarea>
+                    <textarea name="isi" rows="5" placeholder="Tulis isi berita di sini..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px;"></textarea>
                 </div>
 
                 <button type="submit" name="tambah_berita" style="background: #2575fc; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600;">Publikasikan Berita</button>
@@ -152,45 +152,54 @@ $csrf_token = generate_token();
             <?php endif; ?>
         </div>
     </div>
-<script>
-tinymce.init({
-    selector: 'textarea[name="isi"]',
-    height: 350,
-    menubar: false,
+    <script>
+        tinymce.init({
+            selector: 'textarea[name="isi"]',
+            height: 400,
 
-    plugins: [
-        'lists link image table code preview'
-    ],
-
-    toolbar: `
+            plugins: 'lists link image media table code preview',
+            toolbar: `
         undo redo |
         fontfamily fontsize |
         bold italic underline |
         alignleft aligncenter alignright |
         bullist numlist |
-        link image |
+        link image media |
         preview code
     `,
 
-    font_family_formats: `
-        Arial=arial,helvetica,sans-serif;
-        Times New Roman=times new roman,times;
-        Georgia=georgia,serif;
-        Verdana=verdana,geneva,sans-serif;
-        Tahoma=tahoma,arial,sans-serif;
-        Courier New=courier new,courier,monospace
-    `,
+            automatic_uploads: true,
 
-    fontsize_formats: '10px 12px 14px 16px 18px 24px 36px',
+            images_upload_handler: function(blobInfo) {
 
-    content_style: `
-        body {
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-        }
-    `
-});
-</script>
+                return new Promise(function(resolve, reject) {
+
+                    const formData = new FormData();
+                    formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+                    fetch('function_admin/upload_image_berita.php', {
+                            method: 'POST',
+                            body: formData,
+                            credentials: 'same-origin'
+                        })
+                        .then(response => response.json())
+                        .then(result => {
+                            if (result.location) {
+                                resolve(result.location); // WAJIB resolve URL
+                            } else {
+                                reject(result.error || 'Upload gagal');
+                            }
+                        })
+                        .catch(() => {
+                            reject('Kesalahan koneksi server');
+                        });
+
+                });
+            }
+        });
+    </script>
+
+
 
 </body>
 

@@ -140,11 +140,11 @@ $csrf_token = generate_token();
             width: 100%;
             height: 100%;
 
+            .hero::before {
+                background: rgba(0, 0, 0, 0.7);
+                /* Lebih gelap */
+            }
 
-            background: rgba(0, 0, 0, 1);
-
-
-            /* Overlay gelap agar teks terbaca */
             z-index: 1;
         }
 
@@ -168,6 +168,13 @@ $csrf_token = generate_token();
 
         .hero h1 {
             font-size: 2.5rem;
+            font-weight: 800;
+            /* Extra bold */
+            text-shadow:
+                0 0 8px rgba(0, 0, 0, 0.8),
+                0 0 12px rgba(0, 0, 0, 0.52),
+                0 0 8px #ffffffff;
+            /* Outline putih tipis */
             margin-bottom: 1rem;
             opacity: 0;
             transform: translateY(20px);
@@ -176,6 +183,12 @@ $csrf_token = generate_token();
 
         .hero p {
             font-size: 1.2rem;
+            font-weight: 700;
+            text-shadow:
+                0 0 8px rgba(0, 0, 0, 0.8),
+                0 0 12px rgba(0, 0, 0, 0.6),
+                0 0 2px #fff;
+            /* Outline putih tipis */
             max-width: 700px;
             margin: 0 auto 1.5rem;
             opacity: 0;
@@ -272,10 +285,12 @@ $csrf_token = generate_token();
 
             .hero h1 {
                 font-size: 2rem;
+                text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
             }
 
-            .hero {
-                padding: 4rem 1.5rem 3rem;
+            .hero p {
+                font-size: 1rem;
+                text-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
             }
         }
 

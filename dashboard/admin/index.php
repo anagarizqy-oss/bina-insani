@@ -2,6 +2,7 @@
 // dashboard/admin/index.php
 include '../../includes/auth.php';
 include '../../config/db.php';
+include '../../includes/csrf.php';
 must_be(['admin']);
 
 // Helper function to safely count rows
@@ -21,14 +22,42 @@ $count_guru = countRows($pdo, 'guru');
 $count_berita = countRows($pdo, 'berita');
 $count_ekskul = countRows($pdo, 'ekstrakurikuler');
 
-// Fetch Login Logs
+// Clear Logs
+if (isset($_POST['clear_logs'])) {
+    if (!verify_token($_POST['csrf_token'] ?? '')) {
+        echo "<script>alert('Token CSRF tidak valid');</script>";
+    } else {
+        $pdo->query("TRUNCATE TABLE login_logs");
+        header("Location: index.php");
+        exit;
+    }
+}
+
+// Fetch Login Logs with Search
 $logs = [];
+$search = $_GET['search'] ?? '';
+$limit = 100; // Increased limit for scrollable view
+
 try {
-    $stmt_logs = $pdo->query("SELECT * FROM login_logs ORDER BY login_time DESC LIMIT 10");
+    $query = "SELECT * FROM login_logs";
+    $params = [];
+
+    if (!empty($search)) {
+        $query .= " WHERE username LIKE ? OR role LIKE ?";
+        $params[] = "%$search%";
+        $params[] = "%$search%";
+    }
+
+    $query .= " ORDER BY login_time DESC LIMIT $limit";
+
+    $stmt_logs = $pdo->prepare($query);
+    $stmt_logs->execute($params);
     $logs = $stmt_logs->fetchAll();
 } catch (PDOException $e) {
-    // Handle error or leave empty
+    // Handle error
 }
+
+$csrf_token = generate_token();
 
 ?>
 <!DOCTYPE html>
@@ -133,8 +162,34 @@ try {
 
         <!-- Login Activity Log -->
         <div class="card" style="margin-top: 2rem;">
-            <h3 style="margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem;">Log Aktivitas Login Baru</h3>
-            <div style="overflow-x: auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; flex-wrap: wrap; gap: 10px;">
+                <h3 style="margin: 0;">Log Aktivitas Login</h3>
+
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <!-- Search Form -->
+                    <form method="GET" style="display: flex; gap: 5px;">
+                        <input type="text" name="search" value="<?= htmlspecialchars($search) ?>" placeholder="Cari user/role..." style="padding: 6px 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.9rem;">
+                        <button type="submit" style="background: #2575fc; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <?php if (!empty($search)): ?>
+                            <a href="index.php" style="background: #ddd; color: #333; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 0.9rem;">Reset</a>
+                        <?php endif; ?>
+                    </form>
+
+                    <!-- Clear Logs Button -->
+                    <?php if (count($logs) > 0): ?>
+                        <form method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus SEMUA riwayat login? Tindakan ini tidak dapat dibatalkan.');" style="margin: 0;">
+                            <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
+                            <button type="submit" name="clear_logs" style="background: #e53935; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.9rem;">
+                                <i class="fas fa-trash-alt"></i> Clear Log
+                            </button>
+                        </form>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <div style="overflow-x: auto; max-height: 400px; overflow-y: auto;">
                 <table style="width: 100%; border-collapse: collapse;">
                     <thead>
                         <tr style="background: #f8f9fa; text-align: left;">
