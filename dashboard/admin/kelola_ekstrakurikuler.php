@@ -35,7 +35,7 @@ must_be(['admin']);
             <a href="data_guru.php" class="menu-item">
                 <i class="fas fa-chalkboard-teacher"></i> <span>Data Guru</span>
             </a>
-            <a href="berita.php" class="menu-item">
+            <a href="kelola_berita.php" class="menu-item">
                 <i class="fas fa-newspaper"></i> <span>Kelola Berita</span>
             </a>
             <a href="kelola_ekstrakurikuler.php" class="menu-item active">
