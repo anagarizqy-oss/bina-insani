@@ -21,6 +21,15 @@ $count_guru = countRows($pdo, 'guru');
 $count_berita = countRows($pdo, 'berita');
 $count_ekskul = countRows($pdo, 'ekstrakurikuler');
 
+// Fetch Login Logs
+$logs = [];
+try {
+    $stmt_logs = $pdo->query("SELECT * FROM login_logs ORDER BY login_time DESC LIMIT 10");
+    $logs = $stmt_logs->fetchAll();
+} catch (PDOException $e) {
+    // Handle error or leave empty
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -56,7 +65,7 @@ $count_ekskul = countRows($pdo, 'ekstrakurikuler');
             <a href="berita.php" class="menu-item">
                 <i class="fas fa-newspaper"></i> <span>Kelola Berita</span>
             </a>
-            <a href="ekstrakulikuler.php" class="menu-item">
+            <a href="ekstrakurikuler.php" class="menu-item">
                 <i class="fas fa-futbol"></i> <span>Ekstrakurikuler</span>
             </a>
             <a href="profil.php" class="menu-item">
@@ -114,9 +123,52 @@ $count_ekskul = countRows($pdo, 'ekstrakurikuler');
                     <div class="widget-title">Ekstrakurikuler</div>
                     <div class="widget-count"><?= $count_ekskul ?></div>
                 </div>
-                <a href="ekskul/ekstrakulikuler.php" class="widget-link">Kelola Ekskul →</a>
+                <a href="ekstrakurikuler.php" class="widget-link">Kelola Ekskul →</a>
             </div>
 
+        </div>
+
+        <!-- Login Activity Log -->
+        <div class="card" style="margin-top: 2rem;">
+            <h3 style="margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem;">Log Aktivitas Login Baru</h3>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: #f8f9fa; text-align: left;">
+                            <th style="padding: 12px; border-bottom: 2px solid #ddd;">Waktu Login</th>
+                            <th style="padding: 12px; border-bottom: 2px solid #ddd;">Username</th>
+                            <th style="padding: 12px; border-bottom: 2px solid #ddd;">Role</th>
+                            <th style="padding: 12px; border-bottom: 2px solid #ddd;">IP Address</th>
+                            <th style="padding: 12px; border-bottom: 2px solid #ddd;">Status</th>
+                            <th style="padding: 12px; border-bottom: 2px solid #ddd;">Waktu Logout</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (!empty($logs) && count($logs) > 0): ?>
+                            <?php foreach ($logs as $log): ?>
+                                <tr style="border-bottom: 1px solid #eee;">
+                                    <td style="padding: 12px;"><?= date('d M Y H:i', strtotime($log['login_time'])) ?></td>
+                                    <td style="padding: 12px;"><strong><?= htmlspecialchars($log['username']) ?></strong></td>
+                                    <td style="padding: 12px;"><span style="text-transform: capitalize; background: #e3f2fd; color: #1565c0; padding: 2px 8px; border-radius: 4px; font-size: 0.85em;"><?= htmlspecialchars($log['role']) ?></span></td>
+                                    <td style="padding: 12px; color: #666;"><?= htmlspecialchars($log['ip_address']) ?></td>
+                                    <td style="padding: 12px;">
+                                        <?php if ($log['is_active']): ?>
+                                            <span style="background: #e8f5e9; color: #2e7d32; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: 500;">Aktif</span>
+                                        <?php else: ?>
+                                            <span style="background: #ffebee; color: #c62828; padding: 4px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: 500;">Logout</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td style="padding: 12px; color: #666;"><?= $log['logout_time'] ? date('H:i', strtotime($log['logout_time'])) : '-' ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="6" style="text-align: center; color: #666; padding: 20px;">Belum ada aktivitas login.</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     </div>
