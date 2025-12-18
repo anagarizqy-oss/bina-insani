@@ -65,8 +65,11 @@ try {
             <a href="berita.php" class="menu-item">
                 <i class="fas fa-newspaper"></i> <span>Kelola Berita</span>
             </a>
-            <a href="ekstrakurikuler.php" class="menu-item">
+            <a href="kelola_ekstrakurikuler.php" class="menu-item">
                 <i class="fas fa-futbol"></i> <span>Ekstrakurikuler</span>
+            </a>
+            <a href="masukan.php" class="menu-item">
+                <i class="fas fa-envelope-open-text"></i> <span>Masukan & Saran</span>
             </a>
             <a href="profil.php" class="menu-item">
                 <i class="fas fa-user"></i> <span>Profil Saya</span>
