@@ -223,32 +223,27 @@ button:hover {
     cursor: pointer;
 }
 
-/* Pastikan dropdown content punya z-index tinggi dan class .show untuk JS */
 .dropdown-content {
-    display: none; /* Sembunyi secara default */
+    display: none; 
     position: absolute;
-    background-color: #ffffff;
-    min-width: 220px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 9999; /* Sangat penting agar berada di atas elemen lain */
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 9999; /* Pastikan di atas segalanya */
     border-radius: 8px;
-    margin-top: 10px;
-    border: 1px solid #eee;
+    top: 100%; /* Posisi tepat di bawah button */
+    left: 0;
 }
 
-/* Class ini yang akan dipicu oleh JavaScript */
 .dropdown-content.show {
-    display: block;
+    display: block; /* Muncul ketika class .show ada */
 }
 
 .dropdown-content a {
-    color: #333 !important; /* Paksa warna teks agar terlihat */
+    color: #333 !important;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-    font-size: 14px;
-    text-align: left;
-    transition: 0.3s;
 }
 
 .dropdown-content a:hover {
@@ -478,3 +473,4 @@ footer {
 html {
     scroll-behavior: smooth;
 }
+

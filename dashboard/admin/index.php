@@ -56,7 +56,7 @@ $count_ekskul = countRows($pdo, 'ekstrakurikuler');
             <a href="berita.php" class="menu-item">
                 <i class="fas fa-newspaper"></i> <span>Kelola Berita</span>
             </a>
-            <a href="ekstrakurikuler.php" class="menu-item">
+            <a href="ekstrakulikuler.php" class="menu-item">
                 <i class="fas fa-futbol"></i> <span>Ekstrakurikuler</span>
             </a>
             <a href="profil.php" class="menu-item">
@@ -114,7 +114,7 @@ $count_ekskul = countRows($pdo, 'ekstrakurikuler');
                     <div class="widget-title">Ekstrakurikuler</div>
                     <div class="widget-count"><?= $count_ekskul ?></div>
                 </div>
-                <a href="ekstrakurikuler.php" class="widget-link">Kelola Ekskul →</a>
+                <a href="ekskul/ekstrakulikuler.php" class="widget-link">Kelola Ekskul →</a>
             </div>
 
         </div>

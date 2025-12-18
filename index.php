@@ -1,9 +1,42 @@
 <?php
 // index.php - Halaman publik (tanpa login)
 include 'config/db.php';
+include 'includes/csrf.php';
 
 // Ambil 3 berita terbaru
 $berita = $pdo->query("SELECT judul, isi, tanggal FROM berita ORDER BY tanggal DESC LIMIT 3");
+
+// Inisialisasi error & success
+$error = '';
+$success = '';
+
+// Proses form masukan & saran
+if ($_POST && isset($_POST['submit_masukan'])) {
+    if (!verify_token($_POST['csrf_token'] ?? '')) {
+        $error = "Permintaan tidak valid.";
+    } else {
+        $nama = clean($_POST['nama']);
+        $email = clean($_POST['email']);
+        $subjek = clean($_POST['subjek']);
+        $pesan = $_POST['pesan'];
+
+        if (empty($nama) || empty($pesan)) {
+            $error = "Nama dan Pesan wajib diisi.";
+        } else {
+            try {
+                $stmt = $pdo->prepare("INSERT INTO masukan_saran (nama, email, subjek, pesan) VALUES (?, ?, ?, ?)");
+                $stmt->execute([$nama, $email, $subjek, $pesan]);
+                $success = "Terima kasih atas masukan Anda! Kami akan mempertimbangkan saran Anda.";
+                // Reset form
+                $_POST = [];
+            } catch (Exception $e) {
+                $error = "Gagal menyimpan masukan. Silakan coba lagi.";
+            }
+        }
+    }
+}
+
+$csrf_token = generate_token();
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -264,10 +297,10 @@ $berita = $pdo->query("SELECT judul, isi, tanggal FROM berita ORDER BY tanggal D
                     <a href="libur-nasional.php">Libur Nasional</a>
                 </div>
             </div>
-            <a href="ekskul/ekstrakulikuler.php">Ekstrakurikuler</a>
+            <a href="ekstrakulikuler.php">Ekstrakurikuler</a>
             <a href="#info">Informasi</a>
             <a href="#galeri">Galeri</a>
-            <a href="#masukan">Masukan & Saran</a>
+            <a href="masukan.php">Masukan & Saran</a>
             <a href="kontak.php">Kontak</a>
         </div>
         <div class="nav-right">
@@ -299,12 +332,50 @@ $berita = $pdo->query("SELECT judul, isi, tanggal FROM berita ORDER BY tanggal D
         <?php endif; ?>
     </div>
 
+<!-- MASUKAN & SARAN -->
+<div id="masukan" class="section">
+    <h2>Masukan & Saran</h2>
+    <p>Kami terbuka terhadap masukan dan saran dari orang tua, siswa, dan masyarakat.</p>
 
+    <?php if ($error): ?>
+        <div class="alert error" style="padding: 10px; margin: 15px 0; border-radius: 6px; background: #ffebee; color: #c62828; border: 1px solid #ef9a9a;">
+            <?= $error ?>
+        </div>
+    <?php endif; ?>
+    <?php if ($success): ?>
+        <div class="alert success" style="padding: 10px; margin: 15px 0; border-radius: 6px; background: #e8f5e9; color: #2e7d32;">
+            <?= $success ?>
+        </div>
+    <?php endif; ?>
 
-    <div id="masukan" class="section">
-        <h2>Masukan & Saran</h2>
-        <p>Kami terbuka terhadap masukan dan saran dari orang tua, siswa, dan masyarakat. Silakan kirim melalui formulir di halaman kontak.</p>
+    <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+        <form method="POST">
+            <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
+
+            <div style="margin-bottom: 1.2rem;">
+                <label for="nama" style="display: block; margin-bottom: 0.5rem; font-weight: bold; color: #333;">Nama Lengkap *</label>
+                <input type="text" name="nama" id="nama" placeholder="Contoh: Andi Prasetyo" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;">
+            </div>
+
+            <div style="margin-bottom: 1.2rem;">
+                <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: bold; color: #333;">Email (Opsional)</label>
+                <input type="email" name="email" id="email" placeholder="Contoh: andi@email.com" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;">
+            </div>
+
+            <div style="margin-bottom: 1.2rem;">
+                <label for="subjek" style="display: block; margin-bottom: 0.5rem; font-weight: bold; color: #333;">Subjek (Opsional)</label>
+                <input type="text" name="subjek" id="subjek" placeholder="Contoh: Saran Penyempurnaan Website" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;">
+            </div>
+
+            <div style="margin-bottom: 1.2rem;">
+                <label for="pesan" style="display: block; margin-bottom: 0.5rem; font-weight: bold; color: #333;">Pesan *</label>
+                <textarea name="pesan" id="pesan" rows="5" placeholder="Tuliskan masukan atau saran Anda..." required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;"></textarea>
+            </div>
+
+            <button type="submit" name="submit_masukan" style="background: #2575fc; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: background 0.3s;">Kirim Masukan</button>
+        </form>
     </div>
+</div>
 
     <!-- FOOTER -->
     <footer>

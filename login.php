@@ -246,7 +246,8 @@ $csrf_token = generate_token();
 </head>
 <body>
     <!-- NAVBAR DARI INCLUDE -->
-    <?php include 'includes/navbar.php'; ?>
+   <?php include 'includes/navbar.php'; ?>
+
 
     <!-- LOGIN CONTAINER -->
     <div class="login-container">

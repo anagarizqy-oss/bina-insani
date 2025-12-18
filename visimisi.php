@@ -50,6 +50,7 @@ include 'config/db.php';
     <!-- NAVBAR -->
     <?php include 'includes/navbar.php'; ?>
 
+
     <!-- CONTENT -->
     <div class="content">
         <h1>Visi & Misi</h1>

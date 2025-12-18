@@ -1,6 +1,8 @@
 <?php
 include 'config/db.php';
-include 'includes/csrf.php';
+include 'includes/navbar.php';
+ ?>
+
 
 if ($_POST) {
     if (!verify_token($_POST['csrf_token'] ?? '')) {

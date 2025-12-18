@@ -150,7 +150,8 @@ include 'config/db.php';
 </head>
 <body>
     <!-- NAVBAR -->
-    <?php include 'includes/navbar.php'; ?>
+   <?php include 'includes/navbar.php'; ?>
+
 
     <!-- CONTENT -->
     <div class="content">
