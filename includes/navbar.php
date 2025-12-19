@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <!-- AGENDA -->
+        <!-- AGENDA --> 
         <div class="dropdown">
             <a href="javascript:void(0)" class="dropbtn" onclick="toggleDropdown('agenda')">
                 Agenda ▾
@@ -37,10 +37,14 @@
 
         <a href="ekstrakurikuler.php">Ekstrakurikuler</a>
         <a href="info.php">Informasi</a>
-        <a href="#galeri">Galeri</a>
-        <a href="#masukan">Masukan & Saran</a>
+        <a href="index.php#galeri">Galeri</a>
+
+        <!-- ✅ DIUBAH DI SINI -->
+ <a href="masukan.php">Masukan & Saran</a>
+
         <a href="kontak.php">Kontak</a>
     </div>
+
     <div class="nav-right">
         <a href="login.php" class="btn-login-nav">Login Akun</a>
         <a href="#" class="btn-ppdb">PPDB</a>
@@ -49,23 +53,16 @@
 
 <script>
     function toggleDropdown(id) {
-        // Tutup semua dropdown dulu
         document.querySelectorAll('.dropdown-content').forEach(el => {
             if (el.id !== id) {
                 el.style.display = 'none';
             }
         });
 
-        // Toggle dropdown yang diklik
         const dropdown = document.getElementById(id);
-        if (dropdown.style.display === 'block') {
-            dropdown.style.display = 'none';
-        } else {
-            dropdown.style.display = 'block';
-        }
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
     }
 
-    // Tutup dropdown saat klik di luar
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.dropdown')) {
             document.querySelectorAll('.dropdown-content').forEach(el => {
