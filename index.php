@@ -4,7 +4,7 @@ include 'config/db.php';
 include 'includes/csrf.php';
 
 // Ambil 3 berita terbaru
-$berita = $pdo->query("SELECT judul, isi, tanggal FROM berita ORDER BY tanggal DESC LIMIT 3");
+$berita = $pdo->query("SELECT id, judul, isi, tanggal, cover FROM berita ORDER BY tanggal DESC LIMIT 3");
 
 // Inisialisasi error & success
 $error = '';
@@ -242,6 +242,14 @@ $csrf_token = generate_token();
             margin-bottom: 0.5rem;
         }
 
+        .news-cover {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
         footer {
             text-align: center;
             padding: 2rem;
@@ -342,7 +350,7 @@ $csrf_token = generate_token();
             <a href="kontak.php">Kontak</a>
         </div>
         <div class="nav-right">
-            <a href="login.php" class="btn-login-nav">Login Akun</a>
+            <a href="login.php" class="btn-login-nav">Login</a>
             <a href="#" class="btn-ppdb">PPDB</a>
         </div>
     </nav>
@@ -360,9 +368,19 @@ $csrf_token = generate_token();
         <?php if ($berita->rowCount() > 0): ?>
             <?php while ($row = $berita->fetch()): ?>
                 <div class="news-item">
+                    <?php if (!empty($row['cover'])): ?>
+                        <a href="detail_berita.php?id=<?= $row['id'] ?>">
+                            <img src="<?= htmlspecialchars($row['cover']) ?>" alt="<?= htmlspecialchars($row['judul']) ?>" class="news-cover">
+                        </a>
+                    <?php endif; ?>
                     <div class="news-date"><?= htmlspecialchars($row['tanggal']) ?></div>
-                    <h3><?= htmlspecialchars($row['judul']) ?></h3>
-                    <p><?= nl2br(htmlspecialchars(substr($row['isi'], 0, 200))) ?>...</p>
+                    <h3>
+                        <a href="detail_berita.php?id=<?= $row['id'] ?>" style="text-decoration: none; color: inherit;">
+                            <?= htmlspecialchars($row['judul']) ?>
+                        </a>
+                    </h3>
+                    <p><?= htmlspecialchars(substr(strip_tags($row['isi']), 0, 200)) ?>...</p>
+                    <a href="detail_berita.php?id=<?= $row['id'] ?>" style="display: inline-block; margin-top: 10px; color: #2575fc; font-weight: bold; text-decoration: none;">Baca Selengkapnya →</a>
                 </div>
             <?php endwhile; ?>
         <?php else: ?>

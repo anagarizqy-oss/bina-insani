@@ -7,6 +7,22 @@ must_be(['admin']);
 
 $error = '';
 $success = '';
+$data = [];
+$is_edit = false;
+
+// CHECK IF EDIT MODE
+if (isset($_GET['id'])) {
+    $id = (int)$_GET['id'];
+    $stmt = $pdo->prepare("SELECT * FROM guru WHERE id = ?");
+    $stmt->execute([$id]);
+    $data = $stmt->fetch();
+
+    if ($data) {
+        $is_edit = true;
+    } else {
+        $error = "Data guru tidak ditemukan.";
+    }
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama_lengkap = clean($_POST['nama_lengkap']);
@@ -17,43 +33,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nuptk = clean($_POST['nuptk']);
     $mata_pelajaran = clean($_POST['mata_pelajaran']);
 
-    // GENERATE CREDENTIALS
-    // 1. Username: gr_{2 huruf nama}{nomor urut}
-    $two_chars = strtolower(substr(str_replace(' ', '', $nama_lengkap), 0, 2));
-
-    // Get count for sequence
-    $stmt_count = $pdo->query("SELECT COUNT(*) FROM guru");
-    $count = $stmt_count->fetchColumn();
-    $sequence = $count + 1;
-
-    $username = "gr_" . $two_chars . $sequence;
-
-    // 2. Password: (3 huruf depan nama lengkap)(3 karakter acak)
-    $three_chars = ucfirst(strtolower(substr(str_replace(' ', '', $nama_lengkap), 0, 3)));
-    $random_chars = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 3);
-
-    $password_plain = $three_chars . $random_chars;
-
     if (empty($nama_lengkap) || empty($nuptk) || empty($mata_pelajaran)) {
         $error = "Semua field bertanda * wajib diisi.";
     } else {
         try {
             $pdo->beginTransaction();
 
-            // 1. Create User
-            $hashed_password = password_hash($password_plain, PASSWORD_DEFAULT);
-            $stmt_user = $pdo->prepare("INSERT INTO users (username, password, role, nama_lengkap) VALUES (?, ?, 'guru', ?)");
-            $stmt_user->execute([$username, $hashed_password, $nama_lengkap]);
-            $user_id = $pdo->lastInsertId();
+            if ($is_edit) {
+                // UPDATE LOGIC
+                // Update users table for name sync
+                $stmt_user = $pdo->prepare("UPDATE users SET nama_lengkap = ? WHERE id = ?");
+                $stmt_user->execute([$nama_lengkap, $data['user_id']]);
 
-            // 2. Insert Guru with password_plain
-            // Note: foto_profil is nullable, leaving it empty for now or default
-            $stmt_guru = $pdo->prepare("INSERT INTO guru (user_id, nuptk, nama_lengkap, mata_pelajaran, is_wali_kelas, kelas_wali, password_plain) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt_guru->execute([$user_id, $nuptk, $nama_lengkap, $mata_pelajaran, $is_wali_kelas, $kelas_wali, $password_plain]);
+                // Update guru table
+                $stmt_guru = $pdo->prepare("UPDATE guru SET nuptk = ?, nama_lengkap = ?, mata_pelajaran = ?, is_wali_kelas = ?, kelas_wali = ? WHERE id = ?");
+                $stmt_guru->execute([$nuptk, $nama_lengkap, $mata_pelajaran, $is_wali_kelas, $kelas_wali, $data['id']]);
 
-            $pdo->commit();
-            header("Location: ../data_guru.php");
-            exit;
+                // Redirect logic
+                $pdo->commit();
+                header("Location: ../data_guru.php");
+                exit;
+            } else {
+                // INSERT LOGIC (Original)
+                // 1. Username: gr_{2 huruf nama}{nomor urut}
+                $two_chars = strtolower(substr(str_replace(' ', '', $nama_lengkap), 0, 2));
+
+                // Get count for sequence
+                $stmt_count = $pdo->query("SELECT COUNT(*) FROM guru");
+                $count = $stmt_count->fetchColumn();
+                $sequence = $count + 1;
+
+                $username = "gr_" . $two_chars . $sequence;
+
+                // 2. Password: (3 huruf depan nama lengkap)(3 karakter acak)
+                $three_chars = ucfirst(strtolower(substr(str_replace(' ', '', $nama_lengkap), 0, 3)));
+                $random_chars = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 3);
+
+                $password_plain = $three_chars . $random_chars;
+
+                // 1. Create User
+                $hashed_password = password_hash($password_plain, PASSWORD_DEFAULT);
+                $stmt_user = $pdo->prepare("INSERT INTO users (username, password, role, nama_lengkap) VALUES (?, ?, 'guru', ?)");
+                $stmt_user->execute([$username, $hashed_password, $nama_lengkap]);
+                $user_id = $pdo->lastInsertId();
+
+                // 2. Insert Guru
+                $stmt_guru = $pdo->prepare("INSERT INTO guru (user_id, nuptk, nama_lengkap, mata_pelajaran, is_wali_kelas, kelas_wali, password_plain) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                $stmt_guru->execute([$user_id, $nuptk, $nama_lengkap, $mata_pelajaran, $is_wali_kelas, $kelas_wali, $password_plain]);
+
+                $pdo->commit();
+                header("Location: ../data_guru.php");
+                exit;
+            }
         } catch (PDOException $e) {
             $pdo->rollBack();
             $error = "Terjadi kesalahan database: " . $e->getMessage();
@@ -85,8 +116,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="main-content" style="margin-left: 0; width: 100%; max-width: 600px; margin: 2rem auto;">
         <div class="card">
-            <h2>Tambah Guru Baru</h2>
-            <p class="subtitle">Buat akun dan data guru baru</p>
+            <h2><?= $is_edit ? 'Edit Data Guru' : 'Tambah Guru Baru' ?></h2>
+            <p class="subtitle"><?= $is_edit ? 'Perbarui data guru' : 'Buat akun dan data guru baru' ?></p>
 
             <?php if ($error): ?>
                 <div class="alert error"><?= $error ?></div>
@@ -94,52 +125,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <form method="POST">
                 <label>NUPTK *</label>
-                <input type="number" name="nuptk" required placeholder="16 digit NUPTK" maxlength="16">
+                <input type="number" name="nuptk" required placeholder="16 digit NUPTK" maxlength="16" value="<?= $is_edit ? htmlspecialchars($data['nuptk']) : '' ?>">
 
                 <label>Nama Lengkap *</label>
-                <input type="text" name="nama_lengkap" placeholder="Contoh: Budi Santoso, S.Pd." required>
+                <input type="text" name="nama_lengkap" placeholder="Contoh: Budi Santoso, S.Pd." required value="<?= $is_edit ? htmlspecialchars($data['nama_lengkap']) : '' ?>">
 
                 <label>Mata Pelajaran *</label>
                 <select name="mata_pelajaran" required>
                     <option value="">-- Pilih Mata Pelajaran --</option>
-                    <option value="Matematika">Matematika</option>
-                    <option value="Bahasa Indonesia">Bahasa Indonesia</option>
-                    <option value="Bahasa Inggris">Bahasa Inggris</option>
-                    <option value="Fisika">Fisika</option>
-                    <option value="Kimia">Kimia</option>
-                    <option value="Biologi">Biologi</option>
-                    <option value="Sejarah">Sejarah</option>
-                    <option value="Geografi">Geografi</option>
-                    <option value="Ekonomi">Ekonomi</option>
-                    <option value="Sosiologi">Sosiologi</option>
-                    <option value="Penjaskes">Penjaskes</option>
-                    <option value="Seni Budaya">Seni Budaya</option>
-                    <option value="TIK">TIK</option>
-                    <option value="PKn">PKn</option>
-                    <option value="PAI">PAI</option>
+                    <?php
+                    $mapel_list = ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "Fisika", "Kimia", "Biologi", "Sejarah", "Geografi", "Ekonomi", "Sosiologi", "Penjaskes", "Seni Budaya", "TIK", "PKn", "PAI"];
+                    foreach ($mapel_list as $m) :
+                        $selected = ($is_edit && $data['mata_pelajaran'] == $m) ? 'selected' : '';
+                        echo "<option value=\"$m\" $selected>$m</option>";
+                    endforeach;
+                    ?>
                 </select>
 
                 <div style="margin: 15px 0;">
                     <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                        <input type="checkbox" name="is_wali_kelas" id="is_wali_kelas" value="1" onclick="toggleWaliKelas()" style="width: auto; margin: 0;">
+                        <input type="checkbox" name="is_wali_kelas" id="is_wali_kelas" value="1" onclick="toggleWaliKelas()" style="width: auto; margin: 0;" <?= ($is_edit && $data['is_wali_kelas']) ? 'checked' : '' ?>>
                         Apakah Wali Kelas?
                     </label>
                 </div>
 
-                <div id="wali_kelas_input" style="display: none;">
+                <div id="wali_kelas_input" style="display: <?= ($is_edit && $data['is_wali_kelas']) ? 'block' : 'none' ?>;">
                     <label>Wali Kelas Untuk (Contoh: X IPA 1)</label>
-                    <input type="text" name="kelas_wali" placeholder="Masukkan nama kelas">
+                    <input type="text" name="kelas_wali" placeholder="Masukkan nama kelas" value="<?= $is_edit ? htmlspecialchars($data['kelas_wali'] ?? '') : '' ?>">
                 </div>
 
-                <div style="background: #e8f5e9; padding: 10px; border-radius: 6px; margin: 10px 0; font-size: 0.9em; color: #2e7d32;">
-                    <strong>Info Akun Otomatis:</strong><br>
-                    Username: <em>(random: guru####)</em><br>
-                    Password Default: <strong>123456</strong>
-                </div>
+                <?php if (!$is_edit): ?>
+                    <div style="background: #e8f5e9; padding: 10px; border-radius: 6px; margin: 10px 0; font-size: 0.9em; color: #2e7d32;">
+                        <strong>Info Akun Otomatis:</strong><br>
+                        Username: <em>(random: guru####)</em><br>
+                        Password Default: <strong>123456</strong>
+                    </div>
+                <?php endif; ?>
 
                 <div style="display: flex; gap: 10px; margin-top: 20px;">
                     <a href="../data_guru.php" style="flex: 1; padding: 12px; text-align: center; border: 1px solid #ddd; border-radius: 8px; color: #666;">Batal</a>
-                    <button type="submit" style="flex: 2;">Simpan Data</button>
+                    <button type="submit" style="flex: 2;"><?= $is_edit ? 'Simpan Perubahan' : 'Simpan Data' ?></button>
                 </div>
             </form>
         </div>

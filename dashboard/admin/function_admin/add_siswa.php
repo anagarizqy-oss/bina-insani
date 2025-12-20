@@ -7,6 +7,22 @@ must_be(['admin']);
 
 $error = '';
 $success = '';
+$data = [];
+$is_edit = false;
+
+// CHECK IF EDIT MODE
+if (isset($_GET['id'])) {
+    $id = (int)$_GET['id'];
+    $stmt = $pdo->prepare("SELECT * FROM siswa WHERE id = ?");
+    $stmt->execute([$id]);
+    $data = $stmt->fetch();
+
+    if ($data) {
+        $is_edit = true;
+    } else {
+        $error = "Data siswa tidak ditemukan.";
+    }
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nama_lengkap = clean($_POST['nama_lengkap']);
@@ -17,45 +33,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nomor_kelas = (int)$_POST['nomor_kelas']; // e.g., 1, 2, 3
     $no_hp = clean($_POST['no_hp']);
 
-    // GENERATE CREDENTIALS
-    // 1. Username: sw_{2 huruf nama}{nomor urut}
-    $two_chars = strtolower(substr(str_replace(' ', '', $nama_lengkap), 0, 2));
-
-    // Get count of existing students to determine sequence number
-    $stmt_count = $pdo->query("SELECT COUNT(*) FROM siswa");
-    $count = $stmt_count->fetchColumn();
-    $sequence = $count + 1;
-
-    $username = "sw_" . $two_chars . $sequence;
-
-    // 2. Password: (inisial 3 huruf depan)(PA/PS)(4 karakter acak)
-    $three_chars = ucfirst(strtolower(substr(str_replace(' ', '', $nama_lengkap), 0, 3)));
-    $jurusan_code = ($jurusan === 'IPA') ? 'PA' : 'PS';
-    $random_chars = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 4);
-
-
-
-    $password_plain = $three_chars . $jurusan_code . $random_chars;
-
     if (empty($nama_lengkap) || empty($kelas) || empty($jurusan) || empty($nis)) {
         $error = "Semua field bertanda * wajib diisi.";
     } else {
         try {
             $pdo->beginTransaction();
 
-            // 1. Create User
-            $hashed_password = password_hash($password_plain, PASSWORD_DEFAULT);
-            $stmt_user = $pdo->prepare("INSERT INTO users (username, password, role, nama_lengkap) VALUES (?, ?, 'siswa', ?)");
-            $stmt_user->execute([$username, $hashed_password, $nama_lengkap]);
-            $user_id = $pdo->lastInsertId();
+            if ($is_edit) {
+                // UPDATE LOGIC
+                // Update users table
+                $stmt_user = $pdo->prepare("UPDATE users SET nama_lengkap = ? WHERE id = ?");
+                $stmt_user->execute([$nama_lengkap, $data['user_id']]);
 
-            // 2. Insert Siswa
-            $stmt_siswa = $pdo->prepare("INSERT INTO siswa (user_id, nis, nama_lengkap, absen, kelas, jurusan, nomor_kelas, no_hp, password_plain) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt_siswa->execute([$user_id, $nis, $nama_lengkap, $absen, $kelas, $jurusan, $nomor_kelas, $no_hp, $password_plain]);
+                // Update siswa table
+                $stmt_siswa = $pdo->prepare("UPDATE siswa SET nis = ?, nama_lengkap = ?, absen = ?, kelas = ?, jurusan = ?, nomor_kelas = ?, no_hp = ? WHERE id = ?");
+                $stmt_siswa->execute([$nis, $nama_lengkap, $absen, $kelas, $jurusan, $nomor_kelas, $no_hp, $data['id']]);
 
-            $pdo->commit();
-            header("Location: ../data_siswa.php");
-            exit;
+                $pdo->commit();
+                header("Location: ../data_siswa.php");
+                exit;
+            } else {
+                // INSERT LOGIC (Original)
+                // GENERATE CREDENTIALS
+                // 1. Username: sw_{2 huruf nama}{nomor urut}
+                $two_chars = strtolower(substr(str_replace(' ', '', $nama_lengkap), 0, 2));
+
+                // Get count of existing students to determine sequence number
+                $stmt_count = $pdo->query("SELECT COUNT(*) FROM siswa");
+                $count = $stmt_count->fetchColumn();
+                $sequence = $count + 1;
+
+                $username = "sw_" . $two_chars . $sequence;
+
+                // 2. Password: (inisial 3 huruf depan)(PA/PS)(4 karakter acak)
+                $three_chars = ucfirst(strtolower(substr(str_replace(' ', '', $nama_lengkap), 0, 3)));
+                $jurusan_code = ($jurusan === 'IPA') ? 'PA' : 'PS';
+                $random_chars = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 4);
+
+                $password_plain = $three_chars . $jurusan_code . $random_chars;
+
+                // 1. Create User
+                $hashed_password = password_hash($password_plain, PASSWORD_DEFAULT);
+                $stmt_user = $pdo->prepare("INSERT INTO users (username, password, role, nama_lengkap) VALUES (?, ?, 'siswa', ?)");
+                $stmt_user->execute([$username, $hashed_password, $nama_lengkap]);
+                $user_id = $pdo->lastInsertId();
+
+                // 2. Insert Siswa
+                $stmt_siswa = $pdo->prepare("INSERT INTO siswa (user_id, nis, nama_lengkap, absen, kelas, jurusan, nomor_kelas, no_hp, password_plain) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt_siswa->execute([$user_id, $nis, $nama_lengkap, $absen, $kelas, $jurusan, $nomor_kelas, $no_hp, $password_plain]);
+
+                $pdo->commit();
+                header("Location: ../data_siswa.php");
+                exit;
+            }
         } catch (PDOException $e) {
             $pdo->rollBack();
             $error = "Terjadi kesalahan database: " . $e->getMessage();
@@ -76,8 +106,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="main-content" style="margin-left: 0; width: 100%; max-width: 600px; margin: 2rem auto;">
         <div class="card">
-            <h2>Tambah Siswa Baru</h2>
-            <p class="subtitle">Buat akun dan data siswa baru</p>
+            <h2><?= $is_edit ? 'Edit Data Siswa' : 'Tambah Siswa Baru' ?></h2>
+            <p class="subtitle"><?= $is_edit ? 'Perbarui data siswa' : 'Buat akun dan data siswa baru' ?></p>
 
             <?php if ($error): ?>
                 <div class="alert error"><?= $error ?></div>
@@ -85,25 +115,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <form method="POST">
                 <label>NIS *</label>
-                <input type="number" name="nis" required>
+                <input type="number" name="nis" required value="<?= $is_edit ? htmlspecialchars($data['nis']) : '' ?>">
 
                 <label>Nama Lengkap *</label>
-                <input type="text" name="nama_lengkap" required>
+                <input type="text" name="nama_lengkap" required value="<?= $is_edit ? htmlspecialchars($data['nama_lengkap']) : '' ?>">
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <div>
                         <label>Kelas *</label>
                         <select name="kelas" required>
-                            <option value="X">X</option>
-                            <option value="XI">XI</option>
-                            <option value="XII">XII</option>
+                            <option value="X" <?= ($is_edit && $data['kelas'] == 'X') ? 'selected' : '' ?>>X</option>
+                            <option value="XI" <?= ($is_edit && $data['kelas'] == 'XI') ? 'selected' : '' ?>>XI</option>
+                            <option value="XII" <?= ($is_edit && $data['kelas'] == 'XII') ? 'selected' : '' ?>>XII</option>
                         </select>
                     </div>
                     <div>
                         <label>Jurusan *</label>
                         <select name="jurusan" required>
-                            <option value="IPA">IPA</option>
-                            <option value="IPS">IPS</option>
+                            <option value="IPA" <?= ($is_edit && $data['jurusan'] == 'IPA') ? 'selected' : '' ?>>IPA</option>
+                            <option value="IPS" <?= ($is_edit && $data['jurusan'] == 'IPS') ? 'selected' : '' ?>>IPS</option>
                         </select>
                     </div>
                 </div>
@@ -111,26 +141,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <div>
                         <label>Nomor Kelas * (contoh: 1 untuk X IPA 1)</label>
-                        <input type="number" name="nomor_kelas" min="1" required>
+                        <input type="number" name="nomor_kelas" min="1" required value="<?= $is_edit ? htmlspecialchars($data['nomor_kelas']) : '' ?>">
                     </div>
                     <div>
                         <label>No. Absen *</label>
-                        <input type="number" name="absen" min="1" required>
+                        <input type="number" name="absen" min="1" required value="<?= $is_edit ? htmlspecialchars($data['absen']) : '' ?>">
                     </div>
                 </div>
 
                 <label>Nomor HP</label>
-                <input type="text" name="no_hp">
+                <input type="text" name="no_hp" value="<?= $is_edit ? htmlspecialchars($data['no_hp'] ?? '') : '' ?>">
 
-                <div style="background: #e8f5e9; padding: 10px; border-radius: 6px; margin: 10px 0; font-size: 0.9em; color: #2e7d32;">
-                    <strong>Info Akun Otomatis:</strong><br>
-                    Username: <em>(random: siswa####)</em><br>
-                    Password Default: <strong>123456</strong>
-                </div>
+                <?php if (!$is_edit): ?>
+                    <div style="background: #e8f5e9; padding: 10px; border-radius: 6px; margin: 10px 0; font-size: 0.9em; color: #2e7d32;">
+                        <strong>Info Akun Otomatis:</strong><br>
+                        Username: <em>(random: siswa####)</em><br>
+                        Password Default: <strong>123456</strong>
+                    </div>
+                <?php endif; ?>
 
                 <div style="display: flex; gap: 10px; margin-top: 20px;">
                     <a href="../data_siswa.php" style="flex: 1; padding: 12px; text-align: center; border: 1px solid #ddd; border-radius: 8px; color: #666;">Batal</a>
-                    <button type="submit" style="flex: 2;">Simpan Data</button>
+                    <button type="submit" style="flex: 2;"><?= $is_edit ? 'Simpan Perubahan' : 'Simpan Data' ?></button>
                 </div>
             </form>
         </div>

@@ -167,13 +167,13 @@ $csrf_token = generate_token();
 
                 <div style="display: flex; gap: 10px; align-items: center;">
                     <!-- Search Form -->
-                    <form method="GET" style="display: flex; gap: 5px;">
-                        <input type="text" name="search" value="<?= htmlspecialchars($search) ?>" placeholder="Cari user/role..." style="padding: 6px 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.9rem;">
-                        <button type="submit" style="background: #2575fc; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;">
+                    <form method="GET" style="display: flex; align-items: center; gap: 5px;">
+                        <input type="text" name="search" value="<?= htmlspecialchars($search) ?>" placeholder="Cari user/role..." style="padding: 0 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.9rem; height: 36px;">
+                        <button type="submit" style="background: #2575fc; color: white; border: none; border-radius: 4px; cursor: pointer; height: 36px;">
                             <i class="fas fa-search"></i>
                         </button>
                         <?php if (!empty($search)): ?>
-                            <a href="index.php" style="background: #ddd; color: #333; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 0.9rem;">Reset</a>
+                            <a href="index.php" style="background: #ddd; color: #333; padding: 0 12px; border-radius: 4px; text-decoration: none; font-size: 0.9rem; height: 36px; display: inline-flex; align-items: center;">Reset</a>
                         <?php endif; ?>
                     </form>
 

@@ -6,28 +6,90 @@ include '../../config/db.php';
 must_be(['admin']);
 
 $message = '';
+if (isset($_SESSION['success_message'])) {
+    $message = "<div class='alert success'>" . $_SESSION['success_message'] . "</div>";
+    unset($_SESSION['success_message']);
+}
+if (isset($_SESSION['error_message'])) {
+    $message = "<div class='alert error'>" . $_SESSION['error_message'] . "</div>";
+    unset($_SESSION['error_message']);
+}
 
 // Tambah berita
-if ($_POST && isset($_POST['tambah_berita'])) {
+// Tambah berita
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tambah_berita'])) {
+
     if (!verify_token($_POST['csrf_token'] ?? '')) {
-        $message = "<div class='alert error'>Permintaan tidak valid.</div>";
-    } else {
-        $judul = clean($_POST['judul']);
-        $isi = $_POST['isi'];
-        if (!empty($judul) && !empty($isi)) {
-            $stmt = $pdo->prepare("INSERT INTO berita (judul, isi) VALUES (?, ?)");
-            $stmt->execute([$judul, $isi]);
-            $message = "<div class='alert success'>Berita berhasil ditambahkan!</div>";
-        } else {
-            $message = "<div class='alert error'>Judul dan isi tidak boleh kosong.</div>";
-        }
+        $_SESSION['error_message'] = "Permintaan tidak valid.";
+        header("Location: kelola_berita.php");
+        exit;
     }
+
+    $judul = clean($_POST['judul']);
+    $isi   = $_POST['isi'];
+    $cover_path = null;
+
+    // Upload cover
+    if (!empty($_FILES['cover']['name'])) {
+        $allowed = ['jpg', 'jpeg', 'png', 'webp'];
+        $ext = strtolower(pathinfo($_FILES['cover']['name'], PATHINFO_EXTENSION));
+
+        if (!in_array($ext, $allowed)) {
+            $_SESSION['error_message'] = "Format cover tidak valid.";
+            header("Location: kelola_berita.php");
+            exit;
+        }
+
+        if ($_FILES['cover']['size'] > 2 * 1024 * 1024) {
+            $_SESSION['error_message'] = "Ukuran cover maksimal 2MB.";
+            header("Location: kelola_berita.php");
+            exit;
+        }
+
+        $dir = '../../uploads/cover_berita/';
+        if (!is_dir($dir)) mkdir($dir, 0777, true);
+
+        $filename = uniqid('cover_') . '.' . $ext;
+        move_uploaded_file($_FILES['cover']['tmp_name'], $dir . $filename);
+        $cover_path = 'uploads/cover_berita/' . $filename;
+    }
+
+    if (empty($judul) || empty($isi)) {
+        $_SESSION['error_message'] = "Judul dan isi wajib diisi.";
+        header("Location: kelola_berita.php");
+        exit;
+    }
+
+    // INSERT
+    $stmt = $pdo->prepare(
+        "INSERT INTO berita (judul, isi, cover) VALUES (?, ?, ?)"
+    );
+    $stmt->execute([$judul, $isi, $cover_path]);
+
+    // FLASH MESSAGE + REDIRECT (INI KUNCI)
+    $_SESSION['success_message'] = "Berita berhasil dipublikasikan.";
+    header("Location: kelola_berita.php");
+    exit;
 }
 
 // Hapus berita
 if (isset($_GET['hapus'])) {
     $id = (int)$_GET['hapus'];
+
+    // Ambil path cover lama
+    $stmt = $pdo->prepare("SELECT cover FROM berita WHERE id = ?");
+    $stmt->execute([$id]);
+    $row = $stmt->fetch();
+
+    if ($row && !empty($row['cover'])) {
+        $file_path = '../../' . $row['cover'];
+        if (file_exists($file_path)) {
+            unlink($file_path);
+        }
+    }
+
     $pdo->prepare("DELETE FROM berita WHERE id = ?")->execute([$id]);
+    $_SESSION['success_message'] = "Berita berhasil dihapus.";
     header("Location: kelola_berita.php");
     exit;
 }
@@ -100,12 +162,18 @@ $csrf_token = generate_token();
         <div class="card" style="margin-bottom: 2rem;">
             <h3 style="margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem;">Tambah Berita Baru</h3>
             <?= $message ?>
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
 
                 <div style="margin-bottom: 1rem;">
                     <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Judul Berita</label>
                     <input type="text" name="judul" placeholder="Contoh: Upacara Hari Pahlawan" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px;">
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Cover Berita (Opsional)</label>
+                    <input type="file" name="cover" accept=".jpg,.jpeg,.png,.webp" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px;">
+                    <small style="color: #666;">Format: JPG, PNG, WEBP. Maks: 2MB.</small>
                 </div>
 
                 <div style="margin-bottom: 1rem;">
@@ -126,6 +194,7 @@ $csrf_token = generate_token();
                         <thead>
                             <tr style="background: #f8f9fa; text-align: left;">
                                 <th style="padding: 12px; border-bottom: 2px solid #ddd;">Tanggal</th>
+                                <th style="padding: 12px; border-bottom: 2px solid #ddd; width: 100px;">Cover</th>
                                 <th style="padding: 12px; border-bottom: 2px solid #ddd;">Judul</th>
                                 <th style="padding: 12px; border-bottom: 2px solid #ddd;">Aksi</th>
                             </tr>
@@ -134,6 +203,13 @@ $csrf_token = generate_token();
                             <?php while ($row = $berita_list->fetch()): ?>
                                 <tr style="border-bottom: 1px solid #eee;">
                                     <td style="padding: 12px; width: 150px;"><?= date('d M Y', strtotime($row['tanggal'])) ?></td>
+                                    <td style="padding: 12px;">
+                                        <?php if (!empty($row['cover'])): ?>
+                                            <img src="../../<?= htmlspecialchars($row['cover']) ?>" alt="Cover" style="width: 80px; height: 50px; object-fit: cover; border-radius: 4px;">
+                                        <?php else: ?>
+                                            <span style="color: #999; font-size: 0.8em;">No Image</span>
+                                        <?php endif; ?>
+                                    </td>
                                     <td style="padding: 12px;"><strong><?= htmlspecialchars($row['judul']) ?></strong></td>
                                     <td style="padding: 12px; width: 100px;">
                                         <a href="?hapus=<?= $row['id'] ?>"

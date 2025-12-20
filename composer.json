@@ -1,0 +1,19 @@
+{
+    "name": "export/fadhra",
+    "description": "skip",
+    "autoload": {
+        "psr-4": {
+            "Export\\Fadhra\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Fadhra Dzaki Susanto",
+            "email": "idolafadhra212@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "phpoffice/phpspreadsheet": "^2.1"
+    }
+}

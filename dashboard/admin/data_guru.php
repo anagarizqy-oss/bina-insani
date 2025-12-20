@@ -13,6 +13,43 @@ try {
 } catch (PDOException $e) {
     $error = "Gagal mengambil data guru: " . $e->getMessage();
 }
+// Session Messages
+if (isset($_SESSION['success_message'])) {
+    $error = null; // Clear previous error
+    $success_msg = $_SESSION['success_message']; // Use distinct var
+    unset($_SESSION['success_message']);
+}
+if (isset($_SESSION['error_message'])) {
+    $error = $_SESSION['error_message'];
+    unset($_SESSION['error_message']);
+}
+
+// Handle Delete
+if (isset($_GET['delete'])) {
+    $id = (int)$_GET['delete'];
+    try {
+        $pdo->beginTransaction();
+
+        // Get user_id first
+        $stmt_get = $pdo->prepare("SELECT user_id FROM guru WHERE id = ?");
+        $stmt_get->execute([$id]);
+        $user_id = $stmt_get->fetchColumn();
+
+        if ($user_id) {
+            // Delete from guru
+            $pdo->prepare("DELETE FROM guru WHERE id = ?")->execute([$id]);
+            // Delete from users
+            $pdo->prepare("DELETE FROM users WHERE id = ?")->execute([$user_id]);
+
+            $pdo->commit();
+            header("Location: data_guru.php");
+            exit;
+        }
+    } catch (Exception $e) {
+        $pdo->rollBack();
+        $error = "Gagal menghapus data: " . $e->getMessage();
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -73,9 +110,26 @@ try {
                 <h2>Data Guru</h2>
                 <p class="subtitle">Kelola data guru dan staf pengajar</p>
             </div>
-            <a href="function_admin/add_guru.php" class="widget-link" style="background: #2575fc; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold;">+ Tambah Guru</a>
+            <div class="header-actions" style="display: flex; gap: 10px;">
+                <!-- Export -->
+                <a href="function_admin/export_guru.php" class="btn-export" style="background: #4caf50; color: white; padding: 10px 15px; text-decoration: none; border-radius: 6px; font-weight: 500; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px;">
+                    <i class="fas fa-file-excel"></i> Export Excel
+                </a>
+                <!-- Import -->
+                <button onclick="document.getElementById('importModal').style.display='flex'" class="btn-import" style="background: #ff9800; color: white; padding: 10px 15px; border: none; border-radius: 6px; font-weight: 500; font-size: 0.9rem; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;">
+                    <i class="fas fa-file-upload"></i> Import Excel
+                </button>
+                <a href="function_admin/add_guru.php" class="btn-add" style="background: #2575fc; color: white; padding: 10px 15px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px;">
+                    <i class="fas fa-plus"></i> Tambah Data
+                </a>
+            </div>
         </header>
 
+        <?php if (isset($success_msg)): ?>
+            <div class="alert success" style="background: #e8f5e9; color: #2e7d32; padding: 10px; border-radius: 6px; margin-bottom: 20px;">
+                <?= $success_msg ?>
+            </div>
+        <?php endif; ?>
         <?php if (isset($error)): ?>
             <div class="alert error"><?= $error ?></div>
         <?php endif; ?>
@@ -106,8 +160,8 @@ try {
                                     <td><strong><?= htmlspecialchars($row['username']) ?></strong></td>
                                     <td><code><?= htmlspecialchars($row['password_plain']) ?></code></td>
                                     <td>
-                                        <a href="#" style="color: #2575fc; margin-right: 10px;"><i class="fas fa-edit"></i></a>
-                                        <a href="#" style="color: #e53935;"><i class="fas fa-trash"></i></a>
+                                        <a href="function_admin/add_guru.php?id=<?= $row['id'] ?>" style="color: #2575fc; margin-right: 10px;"><i class="fas fa-edit"></i></a>
+                                        <a href="?delete=<?= $row['id'] ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus data guru ini? Akun login juga akan dihapus.')" style="color: #e53935;"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -117,6 +171,24 @@ try {
             <?php else: ?>
                 <p style="text-align: center; color: #666; padding: 2rem;">Belum ada data guru.</p>
             <?php endif; ?>
+        </div>
+    </div>
+
+    <!-- Import Modal -->
+    <div id="importModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000;">
+        <div style="background: white; padding: 2rem; border-radius: 12px; width: 400px; max-width: 90%;">
+            <h3 style="margin-bottom: 1rem;">Import Data Guru (CSV)</h3>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem;">
+                Format CSV: NUPTK, Nama, Mapel, IsWali(1/0), KelasWali.<br>
+                Baris pertama header (akan diabaikan).
+            </p>
+            <form action="function_admin/import_guru.php" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file_csv" accept=".csv" required style="margin-bottom: 1rem; width: 100%;">
+                <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <button type="button" onclick="document.getElementById('importModal').style.display='none'" style="padding: 8px 15px; border: 1px solid #ddd; background: white; border-radius: 6px; cursor: pointer;">Batal</button>
+                    <button type="submit" style="padding: 8px 15px; background: #2575fc; color: white; border: none; border-radius: 6px; cursor: pointer;">Upload</button>
+                </div>
+            </form>
         </div>
     </div>
 
