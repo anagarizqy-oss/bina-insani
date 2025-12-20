@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // dashboard/admin/function_admin/add_guru.php
 include '../../../includes/auth.php';
 include '../../../config/db.php';
@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Guru - Admin</title>
-    <link rel="stylesheet" href="../../../assets/admin.css">
+    <link rel="stylesheet" href="../../../assets/css/admin.css">
     <script>
         function toggleWaliKelas() {
             var checkbox = document.getElementById('is_wali_kelas');

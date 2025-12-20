@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // index.php - Halaman publik (tanpa login)
 include 'config/db.php';
 include 'includes/csrf.php';
@@ -45,7 +45,7 @@ $csrf_token = generate_token();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SMA BINA INSANI WONOGIRI - Website Resmi</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         /* === NAVBAR BARU === */
         .navbar-new {
@@ -318,7 +318,7 @@ $csrf_token = generate_token();
             <!-- PROFIL KAMI -->
             <div class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn" onclick="toggleDropdown('profil-kami')">
-                    Profil Kami ▾
+                    Profil Kami
                 </a>
                 <div id="profil-kami" class="dropdown-content">
                     <a href="profil-sekolah.php">Profil Sekolah</a>
@@ -334,7 +334,7 @@ $csrf_token = generate_token();
             <!-- AGENDA -->
             <div class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn" onclick="toggleDropdown('agenda')">
-                    Agenda ▾
+                    Agenda
                 </a>
                 <div id="agenda" class="dropdown-content">
                     <a href="agenda-kegiatan.php">Agenda Kegiatan</a>
@@ -380,7 +380,7 @@ $csrf_token = generate_token();
                         </a>
                     </h3>
                     <p><?= htmlspecialchars(substr(strip_tags($row['isi']), 0, 200)) ?>...</p>
-                    <a href="detail_berita.php?id=<?= $row['id'] ?>" style="display: inline-block; margin-top: 10px; color: #2575fc; font-weight: bold; text-decoration: none;">Baca Selengkapnya →</a>
+                    <a href="detail_berita.php?id=<?= $row['id'] ?>" style="display: inline-block; margin-top: 10px; color: #2575fc; font-weight: bold; text-decoration: none;">Baca Selengkapnya </a>
                 </div>
             <?php endwhile; ?>
         <?php else: ?>

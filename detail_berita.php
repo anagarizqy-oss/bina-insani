@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // detail_berita.php
 include 'config/db.php';
 
@@ -26,7 +26,7 @@ if (!$berita) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($berita['judul']) ?> - SMA BINA INSANI WONOGIRI</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         /* Reusing Navbar & Footer styles from index.php via assets/style.css if available, 
            checking index.php had inline styles for Header/Nav. I will copy crucial styles here for consistency. */
@@ -226,7 +226,7 @@ if (!$berita) {
             <!-- PROFIL KAMI -->
             <div class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn" onclick="toggleDropdown('profil-kami')">
-                    Profil Kami ▾
+                    Profil Kami â–¾
                 </a>
                 <div id="profil-kami" class="dropdown-content">
                     <a href="profil-sekolah.php">Profil Sekolah</a>
@@ -242,7 +242,7 @@ if (!$berita) {
             <!-- AGENDA -->
             <div class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn" onclick="toggleDropdown('agenda')">
-                    Agenda ▾
+                    Agenda â–¾
                 </a>
                 <div id="agenda" class="dropdown-content">
                     <a href="agenda-kegiatan.php">Agenda Kegiatan</a>
@@ -281,7 +281,7 @@ if (!$berita) {
             <?= $berita['isi'] ?>
         </div>
 
-        <a href="index.php" class="back-btn">← Kembali ke Beranda</a>
+        <a href="index.php" class="back-btn">Kembali ke Beranda</a>
     </div>
 
     <!-- FOOTER -->

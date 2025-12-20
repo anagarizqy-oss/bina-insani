@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // dashboard/admin/berita.php
 include '../../includes/auth.php';
 include '../../includes/csrf.php';
@@ -46,12 +46,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tambah_berita'])) {
             exit;
         }
 
-        $dir = '../../uploads/cover_berita/';
+        $dir = '../../assets/img/cover_berita/';
         if (!is_dir($dir)) mkdir($dir, 0777, true);
 
         $filename = uniqid('cover_') . '.' . $ext;
         move_uploaded_file($_FILES['cover']['tmp_name'], $dir . $filename);
-        $cover_path = 'uploads/cover_berita/' . $filename;
+        // Simpan path relative untuk frontend (tanpa ../..)
+        $cover_path = 'assets/img/cover_berita/' . $filename;
     }
 
     if (empty($judul) || empty($isi)) {
@@ -104,7 +105,7 @@ $csrf_token = generate_token();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola Berita - Admin SMA BINA INSANI</title>
-    <link rel="stylesheet" href="../../assets/admin.css">
+    <link rel="stylesheet" href="../../assets/css/admin.css">
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tiny.cloud/1/73g6ti6vu2fak6uikd05gzldad4bpmzf7i39m09kw1qa7oqb/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>

@@ -27,7 +27,7 @@ if ($_FILES['file']['size'] > 2 * 1024 * 1024) {
     exit;
 }
 
-$folder = '../../../uploads/berita/';
+$folder = '../../../assets/img/berita/';
 if (!is_dir($folder)) {
     mkdir($folder, 0777, true);
 }
@@ -46,6 +46,6 @@ if (!move_uploaded_file($_FILES['file']['tmp_name'], $path)) {
  */
 $baseUrl = '/sma-bina-insani';
 echo json_encode([
-    'location' => $baseUrl . '/uploads/berita/' . $filename
+    'location' => $baseUrl . '/assets/img/berita/' . $filename
 ]);
 exit;

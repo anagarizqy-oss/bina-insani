@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // informasi.php
 include 'config/db.php';
 ?>
@@ -9,7 +9,7 @@ include 'config/db.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informasi - SMA BINA INSANI WONOGIRI</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         /* === BODY DENGAN GRADIENT SAMA SEPERTI INDEX.PHP === */
         body {
@@ -122,7 +122,7 @@ include 'config/db.php';
         }
 
         .info-content li::before {
-            content: '•';
+            content: '';
             color: #2575fc;
             font-weight: bold;
             position: absolute;
@@ -171,12 +171,12 @@ include 'config/db.php';
             <div class="info-grid">
                 <!-- PENGUMUMAN -->
                 <div class="info-card">
-                    <div class="info-title">📢 Pengumuman</div>
+                    <div class="info-title">Pengumuman</div>
                     <div class="info-content">
                         <ul>
-                            <li>Jadwal MOS tahun ajaran 2025/2026: <strong>15–20 Juli 2025</strong></li>
-                            <li>Libur semester ganjil: <strong>20 Desember 2025 – 6 Januari 2026</strong></li>
-                            <li>Pelaksanaan try out nasional: <strong>10–12 Februari 2026</strong></li>
+                            <li>Jadwal MOS tahun ajaran 2025/2026: <strong>20 Juli 2025</strong></li>
+                            <li>Libur semester ganjil: <strong>20 Desember 2025 - 6 Januari 2026</strong></li>
+                            <li>Pelaksanaan try out nasional: <strong>10-12 Februari 2026</strong></li>
                             <li>Upacara peringatan HUT RI ke-80: <strong>17 Agustus 2025</strong></li>
                         </ul>
                         <p>
@@ -188,7 +188,7 @@ include 'config/db.php';
 
                 <!-- KELULUSAN -->
                 <div class="info-card">
-                    <div class="info-title">🎓 Kelulusan</div>
+                    <div class="info-title">Kelulusan</div>
                     <div class="info-content">
                         <p>
                             <strong>Tahun 2024:</strong> <span style="color: #2575fc; font-weight: bold;">100% LULUS</span> UNBK

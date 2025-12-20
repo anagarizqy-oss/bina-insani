@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // dashboard/guru/nilai.php
 include '../../includes/auth.php';
 include '../../includes/csrf.php';
@@ -21,7 +21,7 @@ if ($_POST && isset($_POST['simpan_nilai'])) {
         $semester = $_POST['semester'];
 
         if ($siswa_id > 0 && !empty($mapel) && $nilai >= 0 && $nilai <= 100 && in_array($semester, ['Ganjil', 'Genap'])) {
-            // Cek apakah nilai untuk mapel & semester ini sudah ada → update
+            // Cek apakah nilai untuk mapel & semester ini sudah ada â†’ update
             $cek = $pdo->prepare("SELECT id FROM nilai WHERE siswa_id = ? AND mapel = ? AND semester = ?");
             $cek->execute([$siswa_id, $mapel, $semester]);
             if ($cek->rowCount() > 0) {
@@ -36,7 +36,7 @@ if ($_POST && isset($_POST['simpan_nilai'])) {
                 $message = "<div class='alert success'>Nilai berhasil disimpan!</div>";
             }
         } else {
-            $message = "<div class='alert error'>Data tidak valid. Pastikan nilai antara 0–100.</div>";
+            $message = "<div class='alert error'>Data tidak valid. Pastikan nilai antara 0â€“100.</div>";
         }
     }
 }
@@ -49,7 +49,7 @@ $csrf_token = generate_token();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Input Nilai - Guru</title>
-    <link rel="stylesheet" href="../../assets/style.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body>
     <nav class="navbar">
@@ -87,7 +87,7 @@ $csrf_token = generate_token();
                 <label>Mata Pelajaran</label>
                 <input type="text" name="mapel" placeholder="Contoh: Matematika, Bahasa Indonesia" required>
 
-                <label>Nilai (0–100)</label>
+                <label>Nilai (0â€“100)</label>
                 <input type="number" name="nilai" min="0" max="100" step="0.1" placeholder="Contoh: 85.5" required>
 
                 <label>Semester</label>
@@ -140,7 +140,7 @@ $csrf_token = generate_token();
                 <div style="text-align: right; margin-top: 1rem;">
                     <a href="export_nilai_csv.php" 
                        style="background: #4caf50; color: white; padding: 8px 16px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">
-                        📥 Export ke CSV (Buka di Excel)
+                        ðŸ“¥ Export ke CSV (Buka di Excel)
                     </a>
                 </div>
 

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // dashboard/guru/presensi.php
 include '../../includes/auth.php';
 include '../../includes/csrf.php';
@@ -20,7 +20,7 @@ if ($_POST && isset($_POST['simpan_presensi'])) {
         $status = $_POST['status'];
 
         if ($siswa_id > 0 && !empty($tanggal) && in_array($status, ['Hadir', 'Sakit', 'Izin', 'Alpha'])) {
-            // Cek apakah presensi untuk tanggal ini sudah ada → update
+            // Cek apakah presensi untuk tanggal ini sudah ada â†’ update
             $cek = $pdo->prepare("SELECT id FROM presensi WHERE siswa_id = ? AND tanggal = ?");
             $cek->execute([$siswa_id, $tanggal]);
             if ($cek->rowCount() > 0) {
@@ -57,7 +57,7 @@ $csrf_token = generate_token();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Input Presensi - Guru</title>
-    <link rel="stylesheet" href="../../assets/style.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body>
     <nav class="navbar">

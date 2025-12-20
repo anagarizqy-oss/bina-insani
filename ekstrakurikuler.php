@@ -1,6 +1,6 @@
-<?php
+﻿<?php
 // ekskul/ekstrakurikuler.php
-include 'config/db.php';      // ✅ Naik ke folder utama
+include 'config/db.php';      // âœ… Naik ke folder utama
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -9,7 +9,7 @@ include 'config/db.php';      // ✅ Naik ke folder utama
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ekstrakurikuler - SMA BINA INSANI WONOGIRI</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         /* === BODY DENGAN GRADIENT SAMA SEPERTI INDEX.PHP === */
         body {
@@ -148,7 +148,7 @@ include 'config/db.php';      // ✅ Naik ke folder utama
 <body>
     <!-- NAVBAR -->
 
-    <?php include 'includes/navbar.php'; ?> <!-- ✅ Sudah benar -->
+    <?php include 'includes/navbar.php'; ?> <!-- âœ… Sudah benar -->
 
     <!-- CONTENT -->
     <div class="content">
@@ -158,63 +158,39 @@ include 'config/db.php';      // ✅ Naik ke folder utama
             <!-- MAIN CONTENT (EKSKUL) -->
             <div class="main-content">
                 <div class="ekskul-grid">
-                    <!-- BARIS PERTAMA: 5 EKSKUL -->
-                    <div class="ekskul-card">
-                        <a href="ekskul-basket.php" style="text-decoration: none; color: inherit;">
-                            <img src="https://via.placeholder.com/300x200?text=Basket+Ball" alt="Basket Ball" class="ekskul-image">
-                            <div class="ekskul-title">Basket Ball</div>
-                        </a>
-                    </div>
+                    <?php
+                    try {
+                        $stmt = $pdo->query("SELECT * FROM ekstrakurikuler ORDER BY nama_ekskul ASC");
+                        while ($row = $stmt->fetch()) {
+                            // Generate random color for placeholder if no image (assuming no image upload exists yet)
+                            $bg_color = substr(md5($row['nama_ekskul']), 0, 6);
+                    ?>
+                            <div class="ekskul-card">
+                                <a href="ekskul/detail-ekskul.php?nama=<?= urlencode($row['nama_ekskul']) ?>" style="text-decoration: none; color: inherit;">
+                                    <?php if (!empty($row['cover_image']) && file_exists($row['cover_image'])): ?>
+                                        <img src="<?= htmlspecialchars($row['cover_image']) ?>" alt="<?= htmlspecialchars($row['nama_ekskul']) ?>" class="ekskul-image">
+                                    <?php else: ?>
+                                        <!-- Placeholder Image with Name -->
+                                        <div style="width: 100%; height: 200px; background-color: #<?= $bg_color ?>; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; font-weight: bold;">
+                                            <?= strtoupper(substr($row['nama_ekskul'], 0, 1)) ?>
+                                        </div>
+                                    <?php endif; ?>
 
-                    <div class="ekskul-card">
-                        <a href="ekskul-bkc.php" style="text-decoration: none; color: inherit;">
-                            <img src="https://via.placeholder.com/300x200?text=BKC" alt="BKC" class="ekskul-image">
-                            <div class="ekskul-title">BKC</div>
-                        </a>
-                    </div>
-
-                    <div class="ekskul-card">
-                        <a href="ekskul-computer-club.php" style="text-decoration: none; color: inherit;">
-                            <img src="https://via.placeholder.com/300x200?text=Computer+Fanc+Club" alt="Computer Fanc Club" class="ekskul-image">
-                            <div class="ekskul-title">Computer Fanc Club</div>
-                        </a>
-                    </div>
-
-                    <div class="ekskul-card">
-                        <a href="ekskul-english-club.php" style="text-decoration: none; color: inherit;">
-                            <img src="https://via.placeholder.com/300x200?text=English+Club" alt="English Club" class="ekskul-image">
-                            <div class="ekskul-title">English Club</div>
-                        </a>
-                    </div>
-
-                    <div class="ekskul-card">
-                        <a href="ekskul-irm.php" style="text-decoration: none; color: inherit;">
-                            <img src="https://via.placeholder.com/300x200?text=Ikatan+Remaja+Mesjid" alt="Ikatan Remaja Mesjid" class="ekskul-image">
-                            <div class="ekskul-title">Ikatan Remaja Mesjid</div>
-                        </a>
-                    </div>
-
-                    <!-- BARIS KEDUA: 3 EKSKUL -->
-                    <div class="ekskul-card">
-                        <a href="ekskul-pmr.php" style="text-decoration: none; color: inherit;">
-                            <img src="https://via.placeholder.com/300x200?text=Palang+Merah+Remaja" alt="Palang Merah Remaja" class="ekskul-image">
-                            <div class="ekskul-title">Palang Merah Remaja</div>
-                        </a>
-                    </div>
-
-                    <div class="ekskul-card">
-                        <a href="ekskul-paskibra.php" style="text-decoration: none; color: inherit;">
-                            <img src="https://via.placeholder.com/300x200?text=Paskibra" alt="Paskibra" class="ekskul-image">
-                            <div class="ekskul-title">Paskibra</div>
-                        </a>
-                    </div>
-
-                    <div class="ekskul-card">
-                        <a href="ekskul-renang.php" style="text-decoration: none; color: inherit;">
-                            <img src="https://via.placeholder.com/300x200?text=Renang" alt="Renang" class="ekskul-image">
-                            <div class="ekskul-title">Renang</div>
-                        </a>
-                    </div>
+                                    <div class="ekskul-title">
+                                        <?= htmlspecialchars($row['nama_ekskul']) ?>
+                                        <div style="font-size: 0.85rem; font-weight: normal; color: #666; margin-top: 8px; text-align: left; padding: 0 10px;">
+                                            <div style="margin-bottom: 4px;"><i class="fas fa-user-tie"></i> Pembimbing: <?= htmlspecialchars($row['guru_pembimbing']) ?></div>
+                                            <div><i class="fas fa-users"></i> Anggota: <?= htmlspecialchars($row['jumlah_anggota']) ?></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                    <?php
+                        }
+                    } catch (PDOException $e) {
+                        echo "<p>Gagal memuat data ekstrakurikuler.</p>";
+                    }
+                    ?>
                 </div>
             </div>
 

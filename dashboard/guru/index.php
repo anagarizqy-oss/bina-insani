@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // dashboard/guru/index.php
 include '../../includes/auth.php';
 include '../../config/db.php';
@@ -15,7 +15,7 @@ $is_wali = $stmt->fetchColumn();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Guru - SMA BINA INSANI</title>
-    <link rel="stylesheet" href="../../assets/style.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body>
     <nav class="navbar">
@@ -39,14 +39,14 @@ $is_wali = $stmt->fetchColumn();
             <h3>Fitur Tersedia</h3>
             <ul style="list-style: none; padding: 0; margin-top: 1rem;">
                 <li style="margin: 0.8rem 0;">
-                    <a href="nilai.php" style="color: #2575fc; text-decoration: none; font-weight: bold;">➤ Input Nilai Siswa</a>
+                    <a href="nilai.php" style="color: #2575fc; text-decoration: none; font-weight: bold;">âž¤ Input Nilai Siswa</a>
                 </li>
                 <li style="margin: 0.8rem 0;">
-                    <a href="presensi.php" style="color: #2575fc; text-decoration: none; font-weight: bold;">➤ Catat Kehadiran Siswa</a>
+                    <a href="presensi.php" style="color: #2575fc; text-decoration: none; font-weight: bold;">âž¤ Catat Kehadiran Siswa</a>
                 </li>
                 <?php if ($is_wali): ?>
                 <li style="margin: 0.8rem 0;">
-                    <a href="spp.php" style="color: #2575fc; text-decoration: none; font-weight: bold;">➤ Kelola Pembayaran SPP (Wali Kelas)</a>
+                    <a href="spp.php" style="color: #2575fc; text-decoration: none; font-weight: bold;">âž¤ Kelola Pembayaran SPP (Wali Kelas)</a>
                 </li>
                 <?php endif; ?>
             </ul>

@@ -1,13 +1,14 @@
-<?php
+﻿<?php
 // libur-nasional.php
 include 'config/db.php';
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Libur Nasional - SMA BINA INSANI WONOGIRI</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         body {
             background: #f9fbff;
@@ -31,7 +32,7 @@ include 'config/db.php';
             background: white;
             padding: 2rem;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             margin: 1.5rem 0;
         }
 
@@ -64,24 +65,25 @@ include 'config/db.php';
         }
     </style>
 </head>
-<body>
-  <?php include 'includes/navbar.php'; ?>
 
-    <div class="content">   
+<body>
+    <?php include 'includes/navbar.php'; ?>
+
+    <div class="content">
         <h1>Libur Nasional</h1>
         <div class="section">
             <p>Berdasarkan ketentuan pemerintah, berikut adalah hari libur nasional tahun 2025:</p>
-            
+
             <ul class="holiday-list">
-          <li class="holiday-item">
-    <div class="holiday-date">1 Jan 2025</div>
-    <div class="holiday-name">Tahun Baru Masehi</div>
-    <div class="holiday-type">Hari Libur Nasional</div>
-</li>
+                <li class="holiday-item">
+                    <div class="holiday-date">1 Jan 2025</div>
+                    <div class="holiday-name">Tahun Baru Masehi</div>
+                    <div class="holiday-type">Hari Libur Nasional</div>
+                </li>
 
                 <li class="holiday-item">
                     <div class="holiday-date">14 Feb 2025</div>
-                    <div class="holiday-name">Valentine’s Day</div>
+                    <div class="holiday-name">Valentine's Day</div>
                     <div class="holiday-type">Hari Kasih Sayang (tidak libur)</div>
                 </li>
                 <li class="holiday-item">
@@ -133,4 +135,5 @@ include 'config/db.php';
         </div>
     </div>
 </body>
+
 </html>

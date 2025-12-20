@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // sejarah.php
 include 'config/db.php';
 ?>
@@ -7,7 +7,7 @@ include 'config/db.php';
 <head>
     <meta charset="UTF-8">
     <title>Sejarah Singkat - SMA BINA INSANI WONOGIRI</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         body {
             background: #f9fbff;
@@ -70,7 +70,7 @@ include 'config/db.php';
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-year">2005</div>
-                    <p>Didirikan di atas tanah seluas 5.000 m² dengan 4 ruang kelas dan 20 siswa angkatan pertama.</p>
+                    <p>Didirikan di atas tanah seluas 5.000 mÂ² dengan 4 ruang kelas dan 20 siswa angkatan pertama.</p>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-year">2010</div>

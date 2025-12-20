@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // kontak.php
 include 'config/db.php';
 ?>
@@ -8,7 +8,7 @@ include 'config/db.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kontak - SMA BINA INSANI WONOGIRI</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         /* === BODY DENGAN GRADIENT SAMA SEPERTI INDEX.PHP === */
         body {
@@ -161,7 +161,7 @@ include 'config/db.php';
             <div class="contact-info">
                 <!-- ALAMAT -->
                 <div class="info-item">
-                    <div class="info-icon">📍</div>
+                    <div class="info-icon">ðŸ“</div>
                     <div class="info-title">Alamat</div>
                     <div class="info-value">
                         Jl. Raya Wonogiri, Desa Boto, Kec. Wonogiri<br>
@@ -171,7 +171,7 @@ include 'config/db.php';
 
                 <!-- TELEPON -->
                 <div class="info-item">
-                    <div class="info-icon">📞</div>
+                    <div class="info-icon">ðŸ“ž</div>
                     <div class="info-title">Telepon</div>
                     <div class="info-value">
                         (0273) 123456<br>
@@ -183,7 +183,7 @@ include 'config/db.php';
 
                 <!-- EMAIL -->
                 <div class="info-item">
-                    <div class="info-icon">✉️</div>
+                    <div class="info-icon">âœ‰ï¸</div>
                     <div class="info-title">Email</div>
                     <div class="info-value">
                         <a href="mailto:info@smabinainsani.sch.id" style="color: #2575fc; text-decoration: none;">
@@ -210,7 +210,7 @@ include 'config/db.php';
             <div class="contact-buttons">
                 <!-- WHATSAPP -->
                 <a href="https://wa.me/6289675316655" target="_blank" class="btn-contact">
-                    <span>📞</span>
+                    <span>ðŸ“ž</span>
                     <span>+62 89675316655</span>
                 </a>
 

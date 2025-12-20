@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 include 'config/db.php';
 include 'includes/navbar.php';
  ?>
@@ -33,7 +33,7 @@ $token = generate_token();
 <head>
     <meta charset="UTF-8">
     <title>Daftar Admin Pertama</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <div class="container">

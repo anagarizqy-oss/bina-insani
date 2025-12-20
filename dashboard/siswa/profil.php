@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // dashboard/siswa/profil.php
 include '../../includes/auth.php';
 include '../../config/db.php';
@@ -19,7 +19,7 @@ $user = $stmt->fetch();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil Siswa - SMA BINA INSANI</title>
-    <link rel="stylesheet" href="../../assets/style.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body>
     <!-- Navbar dengan Logo -->
@@ -41,8 +41,8 @@ $user = $stmt->fetch();
             <img src="../../assets/logo-navbar.png" alt="Foto Profil" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 1.5rem;">
             <p><strong>Nama Lengkap:</strong> <?= htmlspecialchars($user['nama_lengkap']) ?></p>
             <p><strong>Username:</strong> <?= htmlspecialchars($user['username']) ?></p>
-            <p><strong>NIS:</strong> <?= htmlspecialchars($user['nis'] ?? '–') ?></p>
-            <p><strong>Kelas:</strong> <?= htmlspecialchars($user['kelas'] ?? '–') ?></p>
+            <p><strong>NIS:</strong> <?= htmlspecialchars($user['nis'] ?? 'â€“') ?></p>
+            <p><strong>Kelas:</strong> <?= htmlspecialchars($user['kelas'] ?? 'â€“') ?></p>
             <p><strong>Peran:</strong> Siswa</p>
         </div>
     </div>

@@ -1,13 +1,14 @@
-<?php
+﻿<?php
 // jadwal-uji.php
 include 'config/db.php';
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Jadwal Ujian - SMA BINA INSANI WONOGIRI</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         body {
             background: #f9fbff;
@@ -31,7 +32,7 @@ include 'config/db.php';
             background: white;
             padding: 2rem;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             margin: 1.5rem 0;
         }
 
@@ -41,7 +42,8 @@ include 'config/db.php';
             margin-top: 1rem;
         }
 
-        th, td {
+        th,
+        td {
             padding: 12px;
             text-align: left;
             border: 1px solid #ddd;
@@ -66,6 +68,7 @@ include 'config/db.php';
         }
     </style>
 </head>
+
 <body>
     <?php include 'includes/navbar.php'; ?>
 
@@ -73,7 +76,7 @@ include 'config/db.php';
         <h1>Jadwal Ujian</h1>
         <div class="section">
             <p>Berikut adalah jadwal ujian semester ganjil 2025/2026:</p>
-            
+
             <table>
                 <thead>
                     <tr>
@@ -88,31 +91,31 @@ include 'config/db.php';
                         <td>Senin, 15 Sep 2025</td>
                         <td>Bahasa Indonesia</td>
                         <td>X, XI, XII</td>
-                        <td>08.00–10.00</td>
+                        <td>08.00-10.00</td>
                     </tr>
                     <tr>
                         <td>Selasa, 16 Sep 2025</td>
                         <td>Matematika</td>
                         <td>X, XI, XII</td>
-                        <td>08.00–10.00</td>
+                        <td>08.00-10.00</td>
                     </tr>
                     <tr>
                         <td>Rabu, 17 Sep 2025</td>
                         <td>IPA</td>
                         <td>X, XI</td>
-                        <td>08.00–10.00</td>
+                        <td>08.00-10.00</td>
                     </tr>
                     <tr>
                         <td>Kamis, 18 Sep 2025</td>
                         <td>IPS</td>
                         <td>XII</td>
-                        <td>08.00–10.00</td>
+                        <td>08.00-10.00</td>
                     </tr>
                     <tr>
                         <td>Jumat, 19 Sep 2025</td>
                         <td>Bahasa Inggris</td>
                         <td>X, XI, XII</td>
-                        <td>08.00–10.00</td>
+                        <td>08.00-10.00</td>
                     </tr>
                 </tbody>
             </table>
@@ -123,4 +126,5 @@ include 'config/db.php';
         </div>
     </div>
 </body>
+
 </html>

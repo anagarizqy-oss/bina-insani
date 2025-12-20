@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // kalender-akademik.php
 include 'config/db.php';
 ?>
@@ -7,7 +7,7 @@ include 'config/db.php';
 <head>
     <meta charset="UTF-8">
     <title>Kalender Akademik - SMA BINA INSANI WONOGIRI</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         body {
             background: #f9fbff;
@@ -80,7 +80,7 @@ include 'config/db.php';
     <div class="content">
         <h1>Kalender Akademik</h1>
         <p style="text-align: center; margin-bottom: 1.5rem;">
-            <a href="javascript:history.back()" style="color: #2575fc; text-decoration: none; font-weight: bold;">← Kembali ke Agenda</a>
+            <a href="javascript:history.back()" style="color: #2575fc; text-decoration: none; font-weight: bold;">â† Kembali ke Agenda</a>
         </p>
         
         <div class="section">
@@ -92,7 +92,7 @@ include 'config/db.php';
             <div style="margin-top: 1.5rem; text-align: center;">
                 <a href="assets/kalender-2025.pdf" target="_blank" 
                    style="display: inline-block; background: #2575fc; color: white; padding: 8px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;">
-                    📥 Download Kalender Akademik (PDF)
+                    ðŸ“¥ Download Kalender Akademik (PDF)
                 </a>
             </div>
         </div>

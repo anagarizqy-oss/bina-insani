@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // fasilitas.php
 include 'config/db.php';
 ?>
@@ -7,7 +7,7 @@ include 'config/db.php';
 <head>
     <meta charset="UTF-8">
     <title>Fasilitas - SMA BINA INSANI WONOGIRI</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         body {
             background: #f9fbff;
@@ -52,7 +52,7 @@ include 'config/db.php';
         }
 
         li::before {
-            content: '•';
+            content: 'â€¢';
             position: absolute;
             left: 0;
             color: #2575fc;

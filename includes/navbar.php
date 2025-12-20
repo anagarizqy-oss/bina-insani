@@ -28,17 +28,17 @@
                 Agenda ▾
             </a>
             <div id="agenda" class="dropdown-content">
-                <a href="#agenda-kegiatan">Agenda Kegiatan</a>
-                <a href="#kalender-akademik">Kalender Akademik</a>
-                <a href="#jadwal-uji">Jadwal Ujian</a>
-                <a href="#libur-nasional">Libur Nasional</a>
+                <a href="agenda-kegiatan.php">Agenda Kegiatan</a>
+                <a href="kalender-akademik.php">Kalender Akademik</a>
+                <a href="jadwal-uji.php">Jadwal Ujian</a>
+                <a href="libur-nasional.php">Libur Nasional</a>
             </div>
         </div>
 
         <a href="ekstrakurikuler.php">Ekstrakurikuler</a>
         <a href="info.php">Informasi</a>
-        <a href="#galeri">Galeri</a>
-        <a href="#masukan">Masukan & Saran</a>
+        <a href="galeri.php">Galeri</a>
+        <a href="masukan-saran.php">Masukan & Saran</a>
         <a href="kontak.php">Kontak</a>
     </div>
     <div class="nav-right">

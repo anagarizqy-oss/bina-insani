@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 include '../../includes/auth.php';
 include '../../config/db.php';
 must_be(['siswa']);
@@ -12,7 +12,7 @@ $siswa_id = $stmt->fetchColumn();
 <head>
     <meta charset="UTF-8">
     <title>Dashboard Siswa</title>
-    <link rel="stylesheet" href="../../assets/style.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body>
     <nav class="navbar">

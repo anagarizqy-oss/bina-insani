@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // dashboard/admin/index.php
 include '../../includes/auth.php';
 include '../../config/db.php';
@@ -67,7 +67,7 @@ $csrf_token = generate_token();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin - SMA BINA INSANI</title>
-    <link rel="stylesheet" href="../../assets/admin.css">
+    <link rel="stylesheet" href="../../assets/css/admin.css">
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -115,7 +115,7 @@ $csrf_token = generate_token();
     <!-- Main Content -->
     <div class="main-content">
         <header style="margin-bottom: 2rem;">
-            <h2>Halo, <?= htmlspecialchars($_SESSION['nama']) ?>! 👋</h2>
+            <h2>Halo, <?= htmlspecialchars($_SESSION['nama']) ?>!</h2>
             <p class="subtitle">Selamat datang di Panel Admin SMA Bina Insani</p>
         </header>
 
@@ -128,7 +128,7 @@ $csrf_token = generate_token();
                     <div class="widget-title">Total Siswa</div>
                     <div class="widget-count"><?= $count_siswa ?></div>
                 </div>
-                <a href="data_siswa.php" class="widget-link">Lihat Detail →</a>
+                <a href="data_siswa.php" class="widget-link">Lihat Detail â†’</a>
             </div>
 
             <!-- Widget Guru -->
@@ -137,7 +137,7 @@ $csrf_token = generate_token();
                     <div class="widget-title">Total Guru</div>
                     <div class="widget-count"><?= $count_guru ?></div>
                 </div>
-                <a href="data_guru.php" class="widget-link">Lihat Detail →</a>
+                <a href="data_guru.php" class="widget-link">Lihat Detail â†’</a>
             </div>
 
             <!-- Widget Berita -->
@@ -146,7 +146,7 @@ $csrf_token = generate_token();
                     <div class="widget-title">Berita Terbit</div>
                     <div class="widget-count"><?= $count_berita ?></div>
                 </div>
-                <a href="berita.php" class="widget-link">Kelola Berita →</a>
+                <a href="berita.php" class="widget-link">Kelola Berita â†’</a>
             </div>
 
             <!-- Widget Ekskul -->
@@ -155,7 +155,7 @@ $csrf_token = generate_token();
                     <div class="widget-title">Ekstrakurikuler</div>
                     <div class="widget-count"><?= $count_ekskul ?></div>
                 </div>
-                <a href="ekstrakurikuler.php" class="widget-link">Kelola Ekskul →</a>
+                <a href="ekstrakurikuler.php" class="widget-link">Kelola Ekskul â†’</a>
             </div>
 
         </div>

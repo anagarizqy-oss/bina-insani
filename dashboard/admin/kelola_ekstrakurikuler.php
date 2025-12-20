@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // dashboard/admin/kelola_ekstrakurikuler.php
 include '../../includes/auth.php';
 include '../../config/db.php';
@@ -11,7 +11,7 @@ must_be(['admin']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola Ekstrakurikuler - Admin SMA BINA INSANI</title>
-    <link rel="stylesheet" href="../../assets/admin.css">
+    <link rel="stylesheet" href="../../assets/css/admin.css">
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -58,13 +58,73 @@ must_be(['admin']);
 
     <!-- Main Content -->
     <div class="main-content">
-        <header style="margin-bottom: 2rem;">
-            <h2>Kelola Ekstrakurikuler</h2>
-            <p class="subtitle">Manajemen data ekstrakurikuler sekolah</p>
+        <header style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h2>Kelola Ekstrakurikuler</h2>
+                <p class="subtitle">Manajemen data ekstrakurikuler sekolah</p>
+            </div>
+            <a href="function_admin/add_ekskul.php" class="btn-add" style="background: #2575fc; color: white; padding: 10px 15px; border-radius: 6px; text-decoration: none; font-weight: 500; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px;">
+                <i class="fas fa-plus"></i> Tambah Data
+            </a>
         </header>
 
+        <?php
+        // Fetch Data
+        try {
+            $stmt = $pdo->query("SELECT * FROM ekstrakurikuler ORDER BY nama_ekskul ASC");
+            $ekskul_list = $stmt->fetchAll();
+        } catch (PDOException $e) {
+            $error = "gagal mengambil data: " . $e->getMessage();
+        }
+
+        if (isset($_GET['delete'])) {
+            $id = (int)$_GET['delete'];
+            try {
+                $pdo->prepare("DELETE FROM ekstrakurikuler WHERE id_ekskul = ?")->execute([$id]);
+                echo "<script>alert('Data berhasil dihapus'); window.location='kelola_ekstrakurikuler.php';</script>";
+            } catch (Exception $e) {
+                echo "<script>alert('Gagal menghapus data');</script>";
+            }
+        }
+        ?>
+
         <div class="card">
-            <p style="text-align: center; color: #666; padding: 2rem;">Halaman pengelolaan ekstrakurikuler (Konten dapat ditambahkan di sini).</p>
+            <?php if (count($ekskul_list) > 0): ?>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Ekskul</th>
+                                <th>Guru Pembimbing</th>
+                                <th>Ketua</th>
+                                <th>Wakil Ketua</th>
+                                <th>Anggota</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $no = 1;
+                            foreach ($ekskul_list as $row): ?>
+                                <tr>
+                                    <td><?= $no++ ?></td>
+                                    <td><?= htmlspecialchars($row['nama_ekskul']) ?></td>
+                                    <td><?= htmlspecialchars($row['guru_pembimbing']) ?></td>
+                                    <td><?= htmlspecialchars($row['ketua']) ?></td>
+                                    <td><?= htmlspecialchars($row['wakil_ketua']) ?></td>
+                                    <td><?= htmlspecialchars($row['jumlah_anggota']) ?></td>
+                                    <td>
+                                        <a href="function_admin/add_ekskul.php?id=<?= $row['id_ekskul'] ?>" style="color: #2575fc; margin-right: 10px;"><i class="fas fa-edit"></i></a>
+                                        <a href="?delete=<?= $row['id_ekskul'] ?>" onclick="return confirm('Hapus data ekskul ini?')" style="color: #e53935;"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php else: ?>
+                <p style="text-align: center; color: #666; padding: 2rem;">Belum ada data ekstrakurikuler.</p>
+            <?php endif; ?>
         </div>
     </div>
 

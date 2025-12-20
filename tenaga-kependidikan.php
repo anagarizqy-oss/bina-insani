@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // staf-pengajar.php
 include 'config/db.php';
 ?>
@@ -8,7 +8,7 @@ include 'config/db.php';
 <head>
     <meta charset="UTF-8">
     <title>Staf Pengajar - SMA BINA INSANI WONOGIRI</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         body {
             background: url('assets/foto_guru.jpeg') no-repeat center center;
@@ -43,7 +43,7 @@ include 'config/db.php';
             animation: fadeInBounce 1s ease-out 0.3s forwards;
         }
 
-        /* Deskripsi dan Grid Staf — tanpa kotak putih */
+        /* Deskripsi dan Grid Staf â€” tanpa kotak putih */
         .staff-container {
             padding: 1.5rem 1rem;
             margin: 0 auto;

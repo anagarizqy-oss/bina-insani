@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // dashboard/admin/data_guru.php
 include '../../includes/auth.php';
 include '../../config/db.php';
@@ -58,7 +58,7 @@ if (isset($_GET['delete'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Guru - Admin SMA BINA INSANI</title>
-    <link rel="stylesheet" href="../../assets/admin.css">
+    <link rel="stylesheet" href="../../assets/css/admin.css">
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -177,13 +177,14 @@ if (isset($_GET['delete'])) {
     <!-- Import Modal -->
     <div id="importModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000;">
         <div style="background: white; padding: 2rem; border-radius: 12px; width: 400px; max-width: 90%;">
-            <h3 style="margin-bottom: 1rem;">Import Data Guru (CSV)</h3>
+            <h3 style="margin-bottom: 1rem;">Import Data Guru (Excel/CSV)</h3>
             <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem;">
-                Format CSV: NUPTK, Nama, Mapel, IsWali(1/0), KelasWali.<br>
+                Format: NUPTK, Nama, Mapel, IsWali(1/0), KelasWali.<br>
+                Mendukung file .xlsx, .xls, dan .csv.<br>
                 Baris pertama header (akan diabaikan).
             </p>
             <form action="function_admin/import_guru.php" method="POST" enctype="multipart/form-data">
-                <input type="file" name="file_csv" accept=".csv" required style="margin-bottom: 1rem; width: 100%;">
+                <input type="file" name="file_excel" accept=".csv, .xlsx, .xls" required style="margin-bottom: 1rem; width: 100%;">
                 <div style="display: flex; gap: 10px; justify-content: flex-end;">
                     <button type="button" onclick="document.getElementById('importModal').style.display='none'" style="padding: 8px 15px; border: 1px solid #ddd; background: white; border-radius: 6px; cursor: pointer;">Batal</button>
                     <button type="submit" style="padding: 8px 15px; background: #2575fc; color: white; border: none; border-radius: 6px; cursor: pointer;">Upload</button>

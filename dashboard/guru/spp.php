@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // dashboard/guru/spp.php
 include '../../includes/auth.php';
 include '../../includes/csrf.php';
@@ -37,7 +37,7 @@ if ($_POST && isset($_POST['simpan_spp'])) {
         $status = $_POST['status'];
 
         if ($siswa_id > 0 && !empty($bulan) && in_array($status, ['Lunas', 'Belum'])) {
-            // Cek apakah sudah ada → update
+            // Cek apakah sudah ada â†’ update
             $cek = $pdo->prepare("SELECT id FROM spp WHERE siswa_id = ? AND bulan = ?");
             $cek->execute([$siswa_id, $bulan]);
             if ($cek->rowCount() > 0) {
@@ -79,7 +79,7 @@ $csrf_token = generate_token();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola SPP - Wali Kelas</title>
-    <link rel="stylesheet" href="../../assets/style.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body>
     <nav class="navbar">
@@ -94,7 +94,7 @@ $csrf_token = generate_token();
     </nav>
 
     <div class="dashboard">
-        <h2>Kelola SPP – Kelas <?= htmlspecialchars($kelas_wali) ?></h2>
+        <h2>Kelola SPP â€“ Kelas <?= htmlspecialchars($kelas_wali) ?></h2>
         <p class="subtitle">Wali Kelas: <?= $_SESSION['nama'] ?></p>
 
         <div class="card">
@@ -148,9 +148,9 @@ $csrf_token = generate_token();
                                 <td><?= htmlspecialchars($row['bulan']) ?></td>
                                 <td>
                                     <?php if ($row['status'] == 'Lunas'): ?>
-                                        <span style="color: #4caf50; font-weight: bold;">✓ Lunas</span>
+                                        <span style="color: #4caf50; font-weight: bold;">âœ“ Lunas</span>
                                     <?php else: ?>
-                                        <span style="color: #f44336; font-weight: bold;">✕ Belum</span>
+                                        <span style="color: #f44336; font-weight: bold;">âœ• Belum</span>
                                     <?php endif; ?>
                                 </td>
                             </tr>
