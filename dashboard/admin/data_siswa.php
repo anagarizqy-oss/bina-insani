@@ -91,8 +91,8 @@ if (isset($_GET['delete'])) {
             <a href="masukan.php" class="menu-item">
                 <i class="fas fa-envelope-open-text"></i> <span>Masukan & Saran</span>
             </a>
-            <a href="profil.php" class="menu-item">
-                <i class="fas fa-user"></i> <span>Profil Saya</span>
+            <a href="kelola_galeri.php" class="menu-item">
+                <i class="fas fa-images"></i> <span>Kelola Galeri</span>
             </a>
         </div>
 

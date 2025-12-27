@@ -100,8 +100,8 @@ $csrf_token = generate_token();
             <a href="masukan.php" class="menu-item">
                 <i class="fas fa-envelope-open-text"></i> <span>Masukan & Saran</span>
             </a>
-            <a href="profil.php" class="menu-item">
-                <i class="fas fa-user"></i> <span>Profil Saya</span>
+            <a href="kelola_galeri.php" class="menu-item">
+                <i class="fas fa-images"></i> <span>Kelola Galeri</span>
             </a>
         </div>
 
@@ -128,7 +128,7 @@ $csrf_token = generate_token();
                     <div class="widget-title">Total Siswa</div>
                     <div class="widget-count"><?= $count_siswa ?></div>
                 </div>
-                <a href="data_siswa.php" class="widget-link">Lihat Detail â†’</a>
+                <a href="data_siswa.php" class="widget-link">Lihat Detail</a>
             </div>
 
             <!-- Widget Guru -->
@@ -137,7 +137,7 @@ $csrf_token = generate_token();
                     <div class="widget-title">Total Guru</div>
                     <div class="widget-count"><?= $count_guru ?></div>
                 </div>
-                <a href="data_guru.php" class="widget-link">Lihat Detail â†’</a>
+                <a href="data_guru.php" class="widget-link">Lihat Detail</a>
             </div>
 
             <!-- Widget Berita -->
@@ -146,7 +146,7 @@ $csrf_token = generate_token();
                     <div class="widget-title">Berita Terbit</div>
                     <div class="widget-count"><?= $count_berita ?></div>
                 </div>
-                <a href="berita.php" class="widget-link">Kelola Berita â†’</a>
+                <a href="berita.php" class="widget-link">Kelola Berita</a>
             </div>
 
             <!-- Widget Ekskul -->
@@ -155,7 +155,7 @@ $csrf_token = generate_token();
                     <div class="widget-title">Ekstrakurikuler</div>
                     <div class="widget-count"><?= $count_ekskul ?></div>
                 </div>
-                <a href="ekstrakurikuler.php" class="widget-link">Kelola Ekskul â†’</a>
+                <a href="ekstrakurikuler.php" class="widget-link">Kelola Ekskul</a>
             </div>
 
         </div>

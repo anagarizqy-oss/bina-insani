@@ -28,6 +28,7 @@ include 'config/db.php';
             font-size: 2.5rem;
             font-weight: 800;
             /* Extra bold */
+            text-align: center;
             text-shadow:
                 0 0 8px rgba(0, 0, 0, 0.8),
                 0 0 8px rgba(0, 0, 0, 0.52),
