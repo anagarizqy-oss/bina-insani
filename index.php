@@ -46,241 +46,86 @@ $csrf_token = generate_token();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SMA BINA INSANI WONOGIRI - Website Resmi</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bowlby+One&family=Karla:ital,wght@0,200..800;1,200..800&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+
     <style>
-        /* === NAVBAR BARU === */
-        .navbar-new {
-            background: #2575fc;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-left {
-            display: flex;
-            gap: 1.2rem;
-            flex-wrap: wrap;
-        }
-
-        .nav-left a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-            padding: 0.4rem 0.6rem;
-        }
-
-        .nav-left a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: white;
-            transition: width 0.3s;
-        }
-
-        .nav-left a:hover::after {
-            width: 100%;
-        }
-
-        .nav-right {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn-ppdb,
-        .btn-login-nav {
-            padding: 0.5rem 1.2rem;
-            border-radius: 30px;
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: background 0.3s;
-        }
-
-        .btn-ppdb {
-            background: #1a68e8;
-            color: white;
-        }
-
-        .btn-ppdb:hover {
-            background: #1552b8;
-        }
-
-        .btn-login-nav {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-
-        .btn-login-nav:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        /* HERO SECTION */
-        .hero {
-            background: url('assets/bangunan.jpeg') no-repeat center center;
-            background-size: cover;
-            color: white;
-            text-align: center;
-            padding: 5rem 2rem 4rem;
-            position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-
-            .hero::before {
-                background: rgba(0, 0, 0, 0.7);
-                /* Lebih gelap */
-            }
-
-            z-index: 1;
-        }
-
-        .hero>* {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero img {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 0;
-            border: none;
-            box-shadow: none;
-            margin-bottom: 1.5rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInBounce 1s ease-out forwards;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            /* Extra bold */
-            text-shadow:
-                0 0 8px rgba(0, 0, 0, 0.8),
-                0 0 12px rgba(0, 0, 0, 0.52),
-                0 0 8px #ffffffff;
-            /* Outline putih tipis */
-            margin-bottom: 1rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInBounce 1s ease-out 0.3s forwards;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            font-weight: 700;
-            text-shadow:
-                0 0 8px rgba(0, 0, 0, 0.8),
-                0 0 12px rgba(0, 0, 0, 0.6),
-                0 0 2px #fff;
-            /* Outline putih tipis */
-            max-width: 700px;
-            margin: 0 auto 1.5rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInBounce 1s ease-out 0.6s forwards;
-        }
-
-        .btn-login-hero {
-            display: inline-block;
-            background: white;
-            color: #2575fc;
-            padding: 12px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: transform 0.2s, box-shadow 0.2s;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInBounce 1s ease-out 0.9s forwards;
-        }
-
-        .btn-login-hero:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        /* BERITA & FOOTER */
-        .section {
-            padding: 3rem 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .section h2 {
-            text-align: center;
-            color: #2575fc;
-            margin-bottom: 2rem;
-        }
-
-        .news-item {
-            background: white;
-            padding: 1.5rem;
-            margin: 1.2rem 0;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .news-date {
-            color: #2575fc;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .news-cover {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: #666;
-            font-size: 0.9rem;
-            border-top: 1px solid #eee;
-        }
-
-        /* ANIMASI */
-        @keyframes fadeInBounce {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            60% {
-                opacity: 1;
-                transform: translateY(-5px);
-            }
-
-            80% {
-                transform: translateY(3px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         /* RESPONSIF */
+        .navbar-new {
+            background: transparent;
+            position: absolute;
+            display: flex;
+
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            top: 0;
+            left: 0;
+            right: 0;
+            box-shadow: none;
+        }
+
+        .navbar-new .nav-right {
+            display: none;
+        }
+
+        .hero {
+            background: url('assets/bangunan.jpeg');
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+
+            background: linear-gradient(to top right,
+                    rgba(0, 0, 0, 0.75) 0%,
+                    /* hitam pekat mulai */
+                    rgba(0, 0, 0, 0.5) 40%,
+                    /* hitam pekat berhenti di 20% */
+                    rgba(0, 0, 0, 0.2) 100%
+                    /* transparan di kanan atas */
+                );
+            height: 100vh;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+            text-align: center;
+        }
+
+        .hero-content h1,
+        span {
+            font-family: 'Anton', cursive;
+            font-size: 4rem;
+            text-align: left;
+
+        }
+
+        .hero-content h1 span {
+            font-family: 'Anton', cursive;
+            font-size: 4rem;
+            text-align: center;
+        }
+
         @media (max-width: 768px) {
             .nav-left {
                 gap: 0.8rem;
@@ -356,10 +201,17 @@ $csrf_token = generate_token();
     </nav>
     <!-- HERO SECTION -->
     <div class="hero">
-        <img src="assets/sekolah.png" alt="SMA Bina Insani Wonogiri">
-        <h1>SMA BINA INSANI WONOGIRI</h1>
-        <p>Mewujudkan Generasi Unggul, Berakhlak, dan Berprestasi</p>
-        <a href="login.php" class="btn-login-hero">Login Akun</a>
+        <div class="hero-overlay"></div>
+
+        <div class="hero-parallelogram">
+            <div class="hero-content">
+                <img src="assets/sekolah.png" alt="SMA Bina Insani Wonogiri">
+                <span>SMA</span>
+                <h1>BINA INSANI WONOGIRI</h1>
+                <p>Mewujudkan Generasi Unggul, Berakhlak, dan Berprestasi</p>
+                <a href="login.php" class="btn-login-hero">Login Akun</a>
+            </div>
+        </div>
     </div>
 
     <!-- BERITA -->
