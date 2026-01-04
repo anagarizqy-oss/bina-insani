@@ -37,6 +37,8 @@ $bgImagePath = !empty($ekskul['background_image']) && file_exists($basePath . '/
     <title><?= htmlspecialchars($ekskul['nama_ekskul']) ?> - Ekstrakurikuler</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/dinamis.css">
+
     <style>
         :root {
             --ekskul-bg: #<?= $bg_color ?>;

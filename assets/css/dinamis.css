@@ -1,0 +1,12 @@
+:root {
+    --primary-color: rgb(4, 87, 203);
+    --secondary-color: #f7f7f7;
+    --tertiary-color: #2575fc;
+}
+
+.navbar-new {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--primary-color);
+}

@@ -4,10 +4,12 @@ include 'config/db.php';
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Profil Sekolah - SMA BINA INSANI WONOGIRI</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dinamis.css">
     <style>
         body {
             background: #f9fbff;
@@ -36,11 +38,12 @@ include 'config/db.php';
             background: white;
             padding: 2rem;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             margin: 1.5rem 0;
         }
     </style>
 </head>
+
 <body>
     <!-- NAVBAR -->
     <?php include 'includes/navbar.php'; ?>
@@ -55,4 +58,5 @@ include 'config/db.php';
         </div>
     </div>
 </body>
+
 </html>

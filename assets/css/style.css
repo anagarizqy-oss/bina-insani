@@ -1,4 +1,9 @@
-/* assets/style.css */
+:root {
+    --primary-color: rgb(4, 87, 203);
+    --secondary-color: #f7f7f7;
+    --tertiary-color: #2575fc;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,970 +11,551 @@
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
-    min-height: 100vh;
-}
-
-/* === HALAMAN LOGIN & DASHBOARD === */
-.login-body {
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.container {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-    padding: 2.5rem;
-    width: 90%;
-    max-width: 450px;
-    text-align: center;
-}
-
-h1,
-h2 {
-    color: #2575fc;
-    margin-bottom: 1.2rem;
-}
-
-p.subtitle {
-    color: #666;
-    margin-bottom: 1.5rem;
-}
-
-input,
-select,
-button {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-}
-
-button {
-    background: #2575fc;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s;
-}
-
-button:hover {
-    background: #1a68e8;
-}
-
-.alert {
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 6px;
-}
-
-.error {
-    background: #ffebee;
-    color: #c62828;
-    border: 1px solid #ef9a9a;
-}
-
-.success {
-    background: #e8f5e9;
-    color: #2e7d32;
+    font-family: 'Karla', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    overflow-x: hidden;
 }
 
 
-/* === NAVBAR DASHBOARD (DENGAN LOGO) === */
-.navbar {
-    background: #2575fc;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.navbar-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.navbar-logo {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-.navbar h1 {
-    color: white;
-    font-size: 1.3rem;
-    margin: 0;
-}
-
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    margin-left: 1.2rem;
-    position: relative;
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: white;
-    transition: width 0.3s;
-}
-
-.nav-links a:hover::after {
-    width: 100%;
-}
-
-
-/* === NAVBAR BARU (HALAMAN PUBLIK - index.php) === */
+/* RESPONSIF */
 .navbar-new {
-    background: #2575fc;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 1000;
-}
-
-.nav-left {
-    display: flex;
-    gap: 1.2rem;
-    flex-wrap: wrap;
-}
-
-.nav-left>a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    position: relative;
-    padding: 0.4rem 0.6rem;
-}
-
-.nav-left>a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
     left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    height: 70px;
+    background: transparent;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1000;
+
+}
+
+.navbar-new .nav-left {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    gap: 1.5rem;
+    transition: left 0.6s ease, transform 0.6s ease;
+}
+
+.navbar-new .nav-left>a,
+.navbar-new .nav-left .dropdown>a {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s ease;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+.navbar-new .nav-left>a::after,
+.navbar-new .nav-left .dropdown>a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
     width: 0;
     height: 2px;
-    background: white;
-    transition: width 0.3s;
+    background-color: #fff;
+    transition: width 0.3s ease;
 }
 
-.nav-left>a:hover::after {
+.navbar-new .nav-left>a:hover::after,
+.navbar-new .nav-left .dropdown>a:hover::after {
     width: 100%;
 }
 
-.nav-right {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}
 
-.btn-ppdb,
-.btn-login-nav {
-    padding: 0.5rem 1.2rem;
-    border-radius: 30px;
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 0.95rem;
-    transition: background 0.3s;
-}
-
-.btn-ppdb {
-    background: #1a68e8;
-    color: white;
-}
-
-.btn-ppdb:hover {
-    background: #1552b8;
-}
-
-.btn-login-nav {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-.btn-login-nav:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-
-/* === DROPDOWN MENU (Click - Tanpa Hover) === */
-.dropdown {
+.nav-left .dropdown {
     position: relative;
-    display: inline-block;
-}
-
-.dropbtn {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.4rem 0.6rem;
-    display: flex;
-    align-items: center;
-    gap: 4px;
     cursor: pointer;
+
 }
 
-.dropdown-content {
-    display: none;
+.nav-left .dropdown-content {
     position: absolute;
-    background-color: white;
-    min-width: 200px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
-    /* Pastikan di atas segalanya */
-    border-radius: 8px;
+    display: none;
     top: 100%;
-    /* Posisi tepat di bawah button */
     left: 0;
-}
-
-.dropdown-content.show {
-    display: block;
-    /* Muncul ketika class .show ada */
-}
-
-.dropdown-content a {
-    color: #333 !important;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
-    color: #2575fc !important;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    z-index: 1001;
+    color: black;
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
 }
 
-
-
-/* === DASHBOARD === */
-.dashboard {
-    padding: 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.card {
-    background: white;
-    padding: 1.5rem;
-    margin: 1.5rem 0;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-}
-
-th,
-td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-}
-
-th {
-    background: #f0f7ff;
-    color: #2575fc;
-}
-
-
-/* === HALAMAN PUBLIK (index.php) === */
-.hero {
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-    color: white;
-    text-align: center;
-    padding: 5rem 2rem 4rem;
-}
-
-.hero img {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 0;
-    border: none;
-    box-shadow: none;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInBounce 1s ease-out forwards;
-}
-
-.hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInBounce 1s ease-out 0.3s forwards;
-}
-
-.hero p {
-    font-size: 1.2rem;
-    max-width: 700px;
-    margin: 0 auto 1.5rem;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInBounce 1s ease-out 0.6s forwards;
-}
-
-.btn-login-hero {
-    display: inline-block;
-    background: white;
-    color: #2575fc;
-    padding: 12px 30px;
-    border-radius: 30px;
+.dropdown-content a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #333;
     text-decoration: none;
-    font-weight: bold;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: background 0.3s ease;
+}
+
+.dropdown-content a:hover {
+    background: #f5f5f5;
+}
+
+.navbar-new .nav-right {
+    position: absolute;
+    right: 2rem;
     opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInBounce 1s ease-out 0.9s forwards;
+    transform: translateY(-20px);
+    transition: 0.4s ease;
 }
 
-.btn-login-hero:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+/* Navbar saat scroll */
+.navbar-new.scrolled {
+
+    background: var(--primary-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
-.section {
-    padding: 3rem 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
+.navbar-new.scrolled .nav-left {
+    left: 2rem;
+    transform: translateX(0);
 }
 
-.section h2 {
-    text-align: center;
-    color: #2575fc;
-    margin-bottom: 2rem;
+.navbar-new.scrolled .nav-right {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.news-item {
-    background: white;
-    padding: 1.5rem;
-    margin: 1.2rem 0;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+.nav-right {
+    display: flex;
+    gap: 1rem;
 }
 
-.news-date {
-    color: #2575fc;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-}
-
-footer {
-    text-align: center;
-    padding: 2rem;
-    color: #666;
+.nav-right a {
+    text-decoration: none;
     font-size: 0.9rem;
-    border-top: 1px solid #eee;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    padding: 0.45rem 1.4rem;
+    border-radius: 999px;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
 }
 
 
-/* === ANIMASI === */
-@keyframes fadeInBounce {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    60% {
-        opacity: 1;
-        transform: translateY(-5px);
-    }
-
-    80% {
-        transform: translateY(3px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.nav-right .btn-login-nav {
+    color: #ffffff;
+    background: transparent;
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
 }
 
-
-/* === RESPONSIF === */
-@media (max-width: 768px) {
-
-    /* Navbar publik */
-    .nav-left {
-        gap: 0.8rem;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .nav-left>a,
-    .dropbtn {
-        font-size: 0.95rem;
-        padding: 0.5rem 0.8rem;
-    }
-
-    /* Dropdown di mobile */
-    .dropdown-content {
-        position: static;
-        box-shadow: none;
-        margin-top: 0;
-        display: none;
-        width: 100%;
-        max-width: 300px;
-        padding: 8px 0;
-    }
-
-    .dropdown:hover .dropdown-content {
-        display: block;
-    }
-
-    /* Hero */
-    .hero h1 {
-        font-size: 2rem;
-    }
-
-    .hero {
-        padding: 4rem 1.5rem 3rem;
-    }
-
-    /* Navbar dashboard */
-    .navbar {
-        flex-direction: column;
-        gap: 1rem;
-        padding: 1rem;
-    }
-
-    .nav-links {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .dashboard {
-        padding: 1rem;
-    }
-
-    .container {
-        padding: 1.8rem;
-    }
-
-    .hero img {
-        width: 100px;
-        height: 100px;
-    }
+.nav-right .btn-login-nav:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #ffffff;
 }
 
-/* === SCROLL SMOOTH === */
-html {
-    scroll-behavior: smooth;
+.nav-right .btn-ppdb {
+    background: #ffffff;
+    color: #0b5ed7;
+    /* biru navbar */
+    border: 1.5px solid #ffffff;
 }
 
-/* assets/style.css */
-* {
-    margin: 0;
+.nav-right .btn-ppdb:hover {
+    background: #eaf2ff;
+    color: #084298;
+}
+
+/* HAMBURGER MENU */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+    z-index: 1002;
+}
+
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+/* Perfect X Animation */
+.hamburger.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+/* RESPONSIVE NAVBAR */
+
+
+
+/* navbar done */
+
+
+
+.hero {
+    background: url('../bangunan.jpeg');
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Segoe UI', sans-serif;
-    min-height: 100vh;
-}
-
-/* === HALAMAN LOGIN & DASHBOARD === */
-.login-body {
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.container {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-    padding: 2.5rem;
-    width: 90%;
-    max-width: 450px;
-    text-align: center;
-}
-
-h1,
-h2 {
-    color: #2575fc;
-    margin-bottom: 1.2rem;
-}
-
-p.subtitle {
-    color: #666;
-    margin-bottom: 1.5rem;
-}
-
-input,
-select,
-button {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-}
-
-button {
-    background: #2575fc;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s;
-}
-
-button:hover {
-    background: #1a68e8;
-}
-
-.alert {
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 6px;
-}
-
-.error {
-    background: #ffebee;
-    color: #c62828;
-    border: 1px solid #ef9a9a;
-}
-
-.success {
-    background: #e8f5e9;
-    color: #2e7d32;
-}
-
-
-/* === NAVBAR DASHBOARD (DENGAN LOGO) === */
-.navbar {
-    background: #2575fc;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.navbar-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.navbar-logo {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-.navbar h1 {
-    color: white;
-    font-size: 1.3rem;
     margin: 0;
 }
 
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    margin-left: 1.2rem;
-    position: relative;
-}
-
-.nav-links a::after {
-    content: '';
+.hero-overlay {
     position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: white;
-    transition: width 0.3s;
-}
-
-.nav-links a:hover::after {
-    width: 100%;
-}
-
-
-/* === NAVBAR BARU (HALAMAN PUBLIK - index.php) === */
-.navbar-new {
-    background: #2575fc;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    position: sticky;
     top: 0;
-    z-index: 1000;
-}
-
-.nav-left {
-    display: flex;
-    gap: 1.2rem;
-    flex-wrap: wrap;
-}
-
-.nav-left>a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    position: relative;
-    padding: 0.4rem 0.6rem;
-}
-
-.nav-left>a::after {
-    content: '';
-    position: absolute;
+    left: 0;
+    right: 0;
     bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: white;
-    transition: width 0.3s;
-}
-
-.nav-left>a:hover::after {
     width: 100%;
+
+    background: linear-gradient(to top right,
+            rgba(0, 0, 0, 0.75) 0%,
+            /* hitam pekat mulai */
+            rgba(0, 0, 0, 0.5) 40%,
+            /* hitam pekat berhenti di 20% */
+            rgba(0, 0, 0, 0.2) 100%
+            /* transparan di kanan atas */
+        );
+    height: 100vh;
 }
 
-.nav-right {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}
-
-.btn-ppdb,
-.btn-login-nav {
-    padding: 0.5rem 1.2rem;
-    border-radius: 30px;
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 0.95rem;
-    transition: background 0.3s;
-}
-
-.btn-ppdb {
-    background: #1a68e8;
-    color: white;
-}
-
-.btn-ppdb:hover {
-    background: #1552b8;
-}
-
-.btn-login-nav {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-.btn-login-nav:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-
-/* === DROPDOWN MENU (Click - Tanpa Hover) === */
-.dropdown {
+.hero-content {
     position: relative;
-    display: inline-block;
-}
-
-.dropbtn {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.4rem 0.6rem;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    cursor: pointer;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: white;
-    min-width: 200px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
-    /* Pastikan di atas segalanya */
-    border-radius: 8px;
-    top: 100%;
-    /* Posisi tepat di bawah button */
-    left: 0;
-}
-
-.dropdown-content.show {
-    display: block;
-    /* Muncul ketika class .show ada */
-}
-
-.dropdown-content a {
-    color: #333 !important;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
-    color: #2575fc !important;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-
-
-/* === DASHBOARD === */
-.dashboard {
-    padding: 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.card {
-    background: white;
-    padding: 1.5rem;
-    margin: 1.5rem 0;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-table {
+    z-index: 1;
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-}
-
-th,
-td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-}
-
-th {
-    background: #f0f7ff;
-    color: #2575fc;
-}
-
-
-/* === HALAMAN PUBLIK (index.php) === */
-.hero {
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
     text-align: center;
-    padding: 5rem 2rem 4rem;
 }
 
-.hero img {
-    width: 120px;
-    height: 120px;
+.hero-content img {
+    width: 200px;
+    height: 200px;
     object-fit: cover;
-    border-radius: 0;
-    border: none;
-    box-shadow: none;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInBounce 1s ease-out forwards;
-}
-
-.hero h1 {
-    font-size: 2.5rem;
+    border-radius: 50%;
     margin-bottom: 1rem;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInBounce 1s ease-out 0.3s forwards;
 }
 
-.hero p {
-    font-size: 1.2rem;
-    max-width: 700px;
-    margin: 0 auto 1.5rem;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInBounce 1s ease-out 0.6s forwards;
+.hero-content h1,
+.hero-content span {
+    font-family: 'Anton', cursive;
+    font-size: 3rem;
 }
 
-.btn-login-hero {
-    display: inline-block;
-    background: white;
-    color: #2575fc;
-    padding: 12px 30px;
-    border-radius: 30px;
+.hero-content h1 {
+    color: var(--primary-color);
+}
+
+.hero-content a {
+    color: #f7f7f7;
     text-decoration: none;
     font-weight: bold;
-    transition: transform 0.2s, box-shadow 0.2s;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInBounce 1s ease-out 0.9s forwards;
+    transition: color 0.75s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    margin-top: 1rem;
+    background-color: var(--primary-color);
 }
 
-.btn-login-hero:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+.hero-content a:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
-.section {
-    padding: 3rem 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
+/* hero done */
+
+/* news  */
+.news {
+    padding: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
-.section h2 {
-    text-align: center;
-    color: #2575fc;
-    margin-bottom: 2rem;
+.news-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: stretch;
 }
 
 .news-item {
-    background: white;
-    padding: 1.5rem;
-    margin: 1.2rem 0;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.news-date {
-    color: #2575fc;
-    font-weight: bold;
+.news-item img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.news-item h3 {
+    font-size: 1.2rem;
     margin-bottom: 0.5rem;
 }
 
-footer {
-    text-align: center;
-    padding: 2rem;
-    color: #666;
+.news-item p {
     font-size: 0.9rem;
-    border-top: 1px solid #eee;
+    margin-bottom: 0.5rem;
+    flex-grow: 1;
+}
+
+.news-item a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.news-item a:hover {
+    color: var(--secondary-color);
 }
 
 
-/* === ANIMASI === */
-@keyframes fadeInBounce {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
 
-    60% {
-        opacity: 1;
-        transform: translateY(-5px);
-    }
-
-    80% {
-        transform: translateY(3px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* === RESPONSIF === */
-@media (max-width: 768px) {
-
-    /* Navbar publik */
-    .nav-left {
-        gap: 0.8rem;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .nav-left>a,
-    .dropbtn {
-        font-size: 0.95rem;
-        padding: 0.5rem 0.8rem;
-    }
-
-    /* Dropdown di mobile */
-    .dropdown-content {
-        position: static;
-        box-shadow: none;
-        margin-top: 0;
-        display: none;
-        width: 100%;
-        max-width: 300px;
-        padding: 8px 0;
-    }
-
-    .dropdown:hover .dropdown-content {
-        display: block;
-    }
-
-    /* Hero */
-    .hero h1 {
-        font-size: 2rem;
-    }
-
-    .hero {
-        padding: 4rem 1.5rem 3rem;
-    }
-
-    /* Navbar dashboard */
-    .navbar {
-        flex-direction: column;
-        gap: 1rem;
-        padding: 1rem;
-    }
-
-    .nav-links {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .dashboard {
-        padding: 1rem;
-    }
-
-    .container {
-        padding: 1.8rem;
-    }
-
-    .hero img {
-        width: 100px;
-        height: 100px;
-    }
-}
-
-/* === SCROLL SMOOTH === */
+/* SCROLL SMOOTH */
 html {
     scroll-behavior: smooth;
 }
+
+/* FEEDBACK SECTION MODERN */
+.feedback-section {
+    background: #f9fafb;
+    padding: 4rem 2rem;
+}
+
+.feedback-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feedback-grid {
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+/* Kolom Kiri */
+.feedback-info {
+    flex: 1;
+    padding-top: 1rem;
+}
+
+.feedback-info h2 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.feedback-info p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 2rem;
+}
+
+.contact-highlight {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    font-weight: 600;
+    color: #333;
+    font-size: 1rem;
+}
+
+/* Kolom Kanan (Form) */
+.feedback-card {
+    flex: 1;
+    background: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.feedback-card h3 {
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #444;
+    font-size: 0.95rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f9fafb;
+    font-family: inherit;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--tertiary-color);
+    box-shadow: 0 0 0 3px rgba(37, 117, 252, 0.1);
+    background: white;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(to right, var(--primary-color), var(--tertiary-color));
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(37, 117, 252, 0.3);
+}
+
+@media (max-width: 768px) {
+
+    /* RESET DESKTOP ANIMATION */
+    .navbar-new .nav-left {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        left: auto;
+        transform: none;
+        width: 75%;
+        height: 100vh;
+        background-color: var(--primary-color);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 5rem 2rem 2rem;
+        transition: right 0.4s ease;
+        z-index: 1001;
+        gap: 0;
+    }
+
+    /* OPEN STATE */
+    .nav-left.active {
+        right: 0;
+    }
+
+    /* MATIKAN ANIMASI SCROLL DI MOBILE */
+    .navbar-new.scrolled .nav-left {
+        left: auto;
+        transform: none;
+    }
+
+    .navbar-new.scrolled .nav-right {
+        display: none;
+    }
+
+    .nav-left>a,
+    .nav-left .dropdown>a {
+        width: 100%;
+        padding: 1rem 0;
+        font-size: 1.05rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .nav-left .dropdown-content {
+        position: static;
+        display: none;
+        background: transparent;
+        box-shadow: none;
+        padding-left: 1rem;
+    }
+
+    .nav-left .dropdown.active .dropdown-content {
+        display: block;
+    }
+
+    .hamburger {
+        display: flex;
+        position: absolute;
+        left: 2rem;
+    }
+
+    .hamburger span {
+        background-color: #fff;
+        /* Default color */
+    }
+
+
+    /* Hero responsive styles moved here or kept if separate, but nav-left conflicts removed */
+
+    .hero h1 {
+        font-size: 2rem;
+        text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero p {
+        font-size: 1rem;
+        text-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+    }
+
+    .feedback-grid {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .feedback-info h2 {
+        font-size: 2rem;
+    }
+}
+
+/* Responsive Grid */

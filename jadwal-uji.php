@@ -9,6 +9,9 @@ include 'config/db.php';
     <meta charset="UTF-8">
     <title>Jadwal Ujian - SMA BINA INSANI WONOGIRI</title>
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <link rel="stylesheet" href="assets/css/dinamis.css">
+
     <style>
         body {
             background: #f9fbff;

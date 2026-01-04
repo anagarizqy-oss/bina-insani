@@ -27,6 +27,7 @@ if (!$berita) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($berita['judul']) ?> - SMA BINA INSANI WONOGIRI</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dinamis.css">
     <style>
         /* Reusing Navbar & Footer styles from index.php via assets/style.css if available, 
            checking index.php had inline styles for Header/Nav. I will copy crucial styles here for consistency. */

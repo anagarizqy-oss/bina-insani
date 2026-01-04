@@ -2,13 +2,18 @@
 // includes/navbar.php
 ?>
 <nav class="navbar-new">
-    <div class="nav-left">
+    <div class="hamburger" id="hamburger-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="nav-left" id="nav-menu">
         <a href="index.php">Beranda</a>
 
         <!-- PROFIL KAMI -->
         <div class="dropdown">
             <a href="javascript:void(0)" class="dropbtn" onclick="toggleDropdown('profil-kami')">
-                Profil Kami ▾
+                Profil Kami
             </a>
             <div id="profil-kami" class="dropdown-content">
                 <a href="profil-sekolah.php">Profil Sekolah</a>
@@ -21,11 +26,10 @@
                 <a href="tenaga-kependidikan.php">Staf Tenaga Kependidikan</a>
             </div>
         </div>
-
         <!-- AGENDA -->
         <div class="dropdown">
             <a href="javascript:void(0)" class="dropbtn" onclick="toggleDropdown('agenda')">
-                Agenda ▾
+                Agenda
             </a>
             <div id="agenda" class="dropdown-content">
                 <a href="agenda-kegiatan.php">Agenda Kegiatan</a>
@@ -34,16 +38,15 @@
                 <a href="libur-nasional.php">Libur Nasional</a>
             </div>
         </div>
-
         <a href="ekstrakurikuler.php">Ekstrakurikuler</a>
         <a href="info.php">Informasi</a>
         <a href="galeri.php">Galeri</a>
-        <a href="masukan-saran.php">Masukan & Saran</a>
+
         <a href="kontak.php">Kontak</a>
     </div>
     <div class="nav-right">
-        <a href="login.php" class="btn-login-nav">Login Akun</a>
-        <a href="#" class="btn-ppdb">PPDB</a>
+        <a href="login.php" class="btn-login-nav">Login</a>
+        <a href="dashboard/ppdb/ppdb.php" class="btn-ppdb">PPDB</a>
     </div>
 </nav>
 

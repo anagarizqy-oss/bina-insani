@@ -9,6 +9,9 @@ include 'config/db.php';
     <meta charset="UTF-8">
     <title>Staf Pengajar - SMA BINA INSANI WONOGIRI</title>
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <link rel="stylesheet" href="assets/css/dinamis.css">
+
     <style>
         body {
             background: url('assets/foto_guru.jpeg') no-repeat center center;

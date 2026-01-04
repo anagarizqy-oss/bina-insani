@@ -9,7 +9,11 @@ include 'config/db.php';      // âœ… Naik ke folder utama
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ekstrakurikuler - SMA BINA INSANI WONOGIRI</title>
+
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <link rel="stylesheet" href="assets/css/dinamis.css">
+
     <style>
         /* === BODY DENGAN GRADIENT SAMA SEPERTI INDEX.PHP === */
         body {

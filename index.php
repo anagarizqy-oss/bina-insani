@@ -50,114 +50,18 @@ $csrf_token = generate_token();
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bowlby+One&family=Karla:ital,wght@0,200..800;1,200..800&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 
-    <style>
-        /* RESPONSIF */
-        .navbar-new {
-            background: transparent;
-            position: absolute;
-            display: flex;
 
-            width: 100%;
-            justify-content: center;
-            align-items: center;
-            top: 0;
-            left: 0;
-            right: 0;
-            box-shadow: none;
-        }
-
-        .navbar-new .nav-right {
-            display: none;
-        }
-
-        .hero {
-            background: url('assets/bangunan.jpeg');
-            width: 100%;
-            height: 100vh;
-            background-size: cover;
-            background-position: center;
-            padding: 0;
-            margin: 0;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-
-            background: linear-gradient(to top right,
-                    rgba(0, 0, 0, 0.75) 0%,
-                    /* hitam pekat mulai */
-                    rgba(0, 0, 0, 0.5) 40%,
-                    /* hitam pekat berhenti di 20% */
-                    rgba(0, 0, 0, 0.2) 100%
-                    /* transparan di kanan atas */
-                );
-            height: 100vh;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: #fff;
-            text-align: center;
-        }
-
-        .hero-content h1,
-        span {
-            font-family: 'Anton', cursive;
-            font-size: 4rem;
-            text-align: left;
-
-        }
-
-        .hero-content h1 span {
-            font-family: 'Anton', cursive;
-            font-size: 4rem;
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            .nav-left {
-                gap: 0.8rem;
-            }
-
-            .nav-left a {
-                font-size: 0.9rem;
-                padding: 0.3rem 0.5rem;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-                text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
-            }
-
-            .hero p {
-                font-size: 1rem;
-                text-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
-            }
-        }
-
-        /* SCROLL SMOOTH */
-        html {
-            scroll-behavior: smooth;
-        }
-    </style>
 </head>
 
 <body>
     <!-- NAVBAR BARU -->
     <nav class="navbar-new">
-        <div class="nav-left">
+        <div class="hamburger" id="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-left" id="nav-menu">
             <a href="index.php">Beranda</a>
 
             <!-- PROFIL KAMI -->
@@ -215,73 +119,86 @@ $csrf_token = generate_token();
     </div>
 
     <!-- BERITA -->
-    <div class="section">
+    <div class="section news">
         <h2>Berita Terbaru</h2>
-        <?php if ($berita->rowCount() > 0): ?>
-            <?php while ($row = $berita->fetch()): ?>
-                <div class="news-item">
-                    <?php if (!empty($row['cover'])): ?>
-                        <a href="detail_berita.php?id=<?= $row['id'] ?>">
-                            <img src="<?= htmlspecialchars($row['cover']) ?>" alt="<?= htmlspecialchars($row['judul']) ?>" class="news-cover">
-                        </a>
-                    <?php endif; ?>
-                    <div class="news-date"><?= htmlspecialchars($row['tanggal']) ?></div>
-                    <h3>
-                        <a href="detail_berita.php?id=<?= $row['id'] ?>" style="text-decoration: none; color: inherit;">
-                            <?= htmlspecialchars($row['judul']) ?>
-                        </a>
-                    </h3>
-                    <p><?= htmlspecialchars(substr(strip_tags($row['isi']), 0, 200)) ?>...</p>
-                    <a href="detail_berita.php?id=<?= $row['id'] ?>" style="display: inline-block; margin-top: 10px; color: #2575fc; font-weight: bold; text-decoration: none;">Baca Selengkapnya </a>
-                </div>
-            <?php endwhile; ?>
-        <?php else: ?>
-            <p style="text-align: center; color: #888;">Belum ada berita.</p>
-        <?php endif; ?>
+        <div class="news-container">
+            <?php if ($berita->rowCount() > 0): ?>
+                <?php while ($row = $berita->fetch()): ?>
+                    <div class="news-item">
+                        <?php if (!empty($row['cover'])): ?>
+                            <a href="detail_berita.php?id=<?= $row['id'] ?>">
+                                <img src="<?= htmlspecialchars($row['cover']) ?>" alt="<?= htmlspecialchars($row['judul']) ?>" class="news-cover">
+                            </a>
+                        <?php endif; ?>
+                        <div class="news-date"><?= htmlspecialchars($row['tanggal']) ?></div>
+                        <h3>
+                            <a href="detail_berita.php?id=<?= $row['id'] ?>" style="text-decoration: none; color: inherit;">
+                                <?= htmlspecialchars($row['judul']) ?>
+                            </a>
+                        </h3>
+                        <p><?= htmlspecialchars(substr(strip_tags($row['isi']), 0, 200)) ?>...</p>
+                        <a href="detail_berita.php?id=<?= $row['id'] ?>" style="display: inline-block; margin-top: 10px; color: #2575fc; font-weight: bold; text-decoration: none;">Baca Selengkapnya </a>
+                    </div>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <p style="text-align: center; color: #888;">Belum ada berita.</p>
+            <?php endif; ?>
+        </div>
     </div>
 
     <!-- MASUKAN & SARAN -->
-    <div id="masukan" class="section">
-        <h2>Masukan & Saran</h2>
-        <p>Kami terbuka terhadap masukan dan saran dari orang tua, siswa, dan masyarakat.</p>
+    <!-- MASUKAN & SARAN MODERN -->
+    <div id="masukan" class="section feedback-section">
+        <div class="feedback-container">
+            <div class="feedback-grid">
+                <!-- Kolom Kiri: Info -->
+                <div class="feedback-info">
+                    <h2>Kami Ingin Mendengar Anda</h2>
+                    <p>Masukan Anda sangat berarti bagi pengembangan sekolah kami. Jangan ragu untuk berbagi saran, kritik, atau apresiasi.</p>
+                    <div class="contact-highlight">
+                        <span>📧 smabinainsaniwonogiri@gmail.com</span>
+                        <span>📞 (0273) 123456</span>
+                    </div>
+                </div>
 
-        <?php if ($error): ?>
-            <div class="alert error" style="padding: 10px; margin: 15px 0; border-radius: 6px; background: #ffebee; color: #c62828; border: 1px solid #ef9a9a;">
-                <?= $error ?>
+                <!-- Kolom Kanan: Form -->
+                <div class="feedback-card">
+                    <h3>Kirim Masukan</h3>
+
+                    <?php if ($error): ?>
+                        <div class="alert error"><?= $error ?></div>
+                    <?php endif; ?>
+                    <?php if ($success): ?>
+                        <div class="alert success"><?= $success ?></div>
+                    <?php endif; ?>
+
+                    <form method="POST">
+                        <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
+
+                        <div class="form-group">
+                            <label for="nama">Nama Lengkap</label>
+                            <input type="text" name="nama" id="nama" class="form-input" placeholder="Nama Anda" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email (Opsional)</label>
+                            <input type="email" name="email" id="email" class="form-input" placeholder="contoh@email.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subjek">Subjek</label>
+                            <input type="text" name="subjek" id="subjek" class="form-input" placeholder="Topik masukan">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pesan">Pesan</label>
+                            <textarea name="pesan" id="pesan" rows="4" class="form-input" placeholder="Tulis masukan Anda di sini..." required></textarea>
+                        </div>
+
+                        <button type="submit" name="submit_masukan" class="btn-submit">Kirim Sekarang</button>
+                    </form>
+                </div>
             </div>
-        <?php endif; ?>
-        <?php if ($success): ?>
-            <div class="alert success" style="padding: 10px; margin: 15px 0; border-radius: 6px; background: #e8f5e9; color: #2e7d32;">
-                <?= $success ?>
-            </div>
-        <?php endif; ?>
-
-        <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
-            <form method="POST">
-                <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
-
-                <div style="margin-bottom: 1.2rem;">
-                    <label for="nama" style="display: block; margin-bottom: 0.5rem; font-weight: bold; color: #333;">Nama Lengkap *</label>
-                    <input type="text" name="nama" id="nama" placeholder="Contoh: Andi Prasetyo" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;">
-                </div>
-
-                <div style="margin-bottom: 1.2rem;">
-                    <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: bold; color: #333;">Email (Opsional)</label>
-                    <input type="email" name="email" id="email" placeholder="Contoh: andi@email.com" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;">
-                </div>
-
-                <div style="margin-bottom: 1.2rem;">
-                    <label for="subjek" style="display: block; margin-bottom: 0.5rem; font-weight: bold; color: #333;">Subjek (Opsional)</label>
-                    <input type="text" name="subjek" id="subjek" placeholder="Contoh: Saran Penyempurnaan Website" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;">
-                </div>
-
-                <div style="margin-bottom: 1.2rem;">
-                    <label for="pesan" style="display: block; margin-bottom: 0.5rem; font-weight: bold; color: #333;">Pesan *</label>
-                    <textarea name="pesan" id="pesan" rows="5" placeholder="Tuliskan masukan atau saran Anda..." required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;"></textarea>
-                </div>
-
-                <button type="submit" name="submit_masukan" style="background: #2575fc; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; transition: background 0.3s;">Kirim Masukan</button>
-            </form>
         </div>
     </div>
 
@@ -291,34 +208,7 @@ $csrf_token = generate_token();
         Jl. Raya Wonogiri, Jawa Tengah<br>
         <a href="kontak.php" style="color: #2575fc; text-decoration: none; margin-top: 10px; display: inline-block;">Lihat Lokasi & Kontak</a>
     </footer>
-    <script>
-        function toggleDropdown(id) {
-            const dropdown = document.getElementById(id);
-
-            // Tutup semua dropdown lain yang sedang terbuka
-            document.querySelectorAll('.dropdown-content').forEach(el => {
-                if (el.id !== id) {
-                    el.classList.remove('show');
-                }
-            });
-
-            // Toggle class 'show' pada dropdown yang diklik
-            dropdown.classList.toggle('show');
-        }
-
-        // Tutup dropdown saat klik di luar area menu
-        window.onclick = function(event) {
-            if (!event.target.matches('.dropbtn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                for (var i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        }
-    </script>
+    <script src="assets/js/index.js"></script>
 </body>
 
 </html>

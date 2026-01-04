@@ -4,10 +4,14 @@ include 'config/db.php';
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Kalender Akademik - SMA BINA INSANI WONOGIRI</title>
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <link rel="stylesheet" href="assets/css/dinamis.css">
+
     <style>
         body {
             background: #f9fbff;
@@ -31,7 +35,7 @@ include 'config/db.php';
             background: white;
             padding: 2rem;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             margin: 1.5rem 0;
         }
 
@@ -74,28 +78,30 @@ include 'config/db.php';
         }
     </style>
 </head>
+
 <body>
-<?php include 'includes/navbar.php'; ?>
+    <?php include 'includes/navbar.php'; ?>
 
     <div class="content">
         <h1>Kalender Akademik</h1>
         <p style="text-align: center; margin-bottom: 1.5rem;">
             <a href="javascript:history.back()" style="color: #2575fc; text-decoration: none; font-weight: bold;">â† Kembali ke Agenda</a>
         </p>
-        
+
         <div class="section">
             <p>Tahun ajaran 2025/2026:</p>
-            
+
             <!-- ... isi konten ... -->
 
             <!-- TOMBOL DOWNLOAD (opsional) -->
             <div style="margin-top: 1.5rem; text-align: center;">
-                <a href="assets/kalender-2025.pdf" target="_blank" 
-                   style="display: inline-block; background: #2575fc; color: white; padding: 8px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;">
+                <a href="assets/kalender-2025.pdf" target="_blank"
+                    style="display: inline-block; background: #2575fc; color: white; padding: 8px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;">
                     ðŸ“¥ Download Kalender Akademik (PDF)
                 </a>
             </div>
         </div>
     </div>
 </body>
+
 </html>
