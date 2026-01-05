@@ -4,10 +4,14 @@ include 'config/db.php';
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Agenda Kegiatan - SMA BINA INSANI WONOGIRI</title>
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <link rel="stylesheet" href="assets/css/dinamis.css">
+
     <style>
         body {
             background: #f9fbff;
@@ -31,7 +35,7 @@ include 'config/db.php';
             background: white;
             padding: 2rem;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             margin: 1.5rem 0;
         }
 
@@ -64,6 +68,7 @@ include 'config/db.php';
         }
     </style>
 </head>
+
 <body>
     <?php include 'includes/navbar.php'; ?>
 
@@ -71,7 +76,7 @@ include 'config/db.php';
         <h1>Agenda Kegiatan</h1>
         <div class="section">
             <p>Berikut adalah agenda kegiatan sekolah bulan ini:</p>
-            
+
             <ul class="event-list">
                 <li class="event-item">
                     <div class="event-date">15 Jul 2025</div>
@@ -102,4 +107,5 @@ include 'config/db.php';
         </div>
     </div>
 </body>
+
 </html>

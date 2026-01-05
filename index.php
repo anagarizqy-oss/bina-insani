@@ -45,7 +45,7 @@ $csrf_token = generate_token();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SMA BINA INSANI WONOGIRI - Website Resmi</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=<?= time() ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bowlby+One&family=Karla:ital,wght@0,200..800;1,200..800&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
@@ -203,10 +203,66 @@ $csrf_token = generate_token();
     </div>
 
     <!-- FOOTER -->
-    <footer>
-        &copy; <?= date('Y') ?> SMA Bina Insani Wonogiri. All Rights Reserved.<br>
-        Jl. Raya Wonogiri, Jawa Tengah<br>
-        <a href="kontak.php" style="color: #2575fc; text-decoration: none; margin-top: 10px; display: inline-block;">Lihat Lokasi & Kontak</a>
+    <!-- FOOTER MODERN -->
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Kolom 1: Profil Sekolah -->
+                <div class="footer-col">
+                    <div class="footer-brand">
+                        <img src="assets/sekolah.png" alt="Logo SMA Bina Insani" class="footer-logo">
+                        <h3>SMA BINA INSANI<br>WONOGIRI</h3>
+                    </div>
+                    <p class="footer-desc">
+                        Mewujudkan generasi unggul, berakhlak mulia, dan berwawasan global.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook">FB</a>
+                        <a href="#" aria-label="Instagram">IG</a>
+                        <a href="#" aria-label="YouTube">YT</a>
+                    </div>
+                </div>
+
+                <!-- Kolom 2: Tautan Cepat -->
+                <div class="footer-col">
+                    <h4>Tautan Cepat</h4>
+                    <ul class="footer-links">
+                        <li><a href="profil-sekolah.php">Profil Sekolah</a></li>
+                        <li><a href="agenda-kegiatan.php">Agenda Kegiatan</a></li>
+                        <li><a href="ekstrakurikuler.php">Ekstrakurikuler</a></li>
+                        <li><a href="kontak.php">Hubungi Kami</a></li>
+                        <li><a href="login.php">Login Admin</a></li>
+                    </ul>
+                </div>
+
+                <!-- Kolom 3: Kontak -->
+                <div class="footer-col">
+                    <h4>Hubungi Kami</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <span>📍</span>
+                            <span>Jl. Raya Wonogiri - Ponorogo KM. 5, Brubuh, Wonogiri, Jawa Tengah</span>
+                        </li>
+                        <li>
+                            <span>📞</span>
+                            <span>(0273) 321678</span>
+                        </li>
+                        <li>
+                            <span>📧</span>
+                            <span>admin@smabinainsani.sch.id</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; <?= date('Y') ?> SMA Bina Insani Wonogiri. All Rights Reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
     </footer>
     <script src="assets/js/index.js"></script>
 </body>
