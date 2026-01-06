@@ -82,6 +82,9 @@ if (isset($_GET['delete'])) {
             <a href="data_guru.php" class="menu-item">
                 <i class="fas fa-chalkboard-teacher"></i> <span>Data Guru</span>
             </a>
+            <a href="kelola_kelas.php" class="menu-item">
+                <i class="fas fa-school"></i> <span>Kelola Kelas</span>
+            </a>
             <a href="kelola_berita.php" class="menu-item">
                 <i class="fas fa-newspaper"></i> <span>Kelola Berita</span>
             </a>
