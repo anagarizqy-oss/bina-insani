@@ -1,6 +1,3 @@
-<?php
-// includes/navbar.php
-?>
 <nav class="navbar-new">
     <div class="hamburger" id="hamburger-menu">
         <span></span>

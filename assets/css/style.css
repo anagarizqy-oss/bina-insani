@@ -32,7 +32,6 @@ body {
     background: transparent;
     transition: background 0.3s ease, box-shadow 0.3s ease;
     z-index: 1000;
-
 }
 
 .navbar-new .nav-left {

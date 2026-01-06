@@ -10,3 +10,146 @@
     z-index: 1000;
     background-color: var(--primary-color);
 }
+
+/* SUB-PAGES STYLE */
+.page-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../bangunan.jpeg');
+    background-size: cover;
+    background-position: center;
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    margin-bottom: 3rem;
+    padding-top: 70px;
+    /* Space for fixed navbar */
+}
+
+.page-hero h1 {
+    font-size: 3rem;
+    font-family: 'Anton', sans-serif;
+    letter-spacing: 2px;
+}
+
+.profile-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+}
+
+.profile-section {
+    margin-bottom: 4rem;
+}
+
+.profile-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+}
+
+.profile-intro h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.profile-intro p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.8;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.stat-item {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    /* Fixed hex transparency */
+    transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--tertiary-color);
+    font-family: 'Anton', sans-serif;
+}
+
+.stat-label {
+    color: #666;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    display: block;
+}
+
+.history-section {
+    background: white;
+    padding: 3rem;
+    border-radius: 16px;
+    border-left: 5px solid var(--primary-color);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    /* Fixed hex transparency */
+}
+
+.history-section h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+/* MODERN TABLE STYLE */
+.table-container {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    overflow-x: auto;
+    /* Responsive wrapper */
+}
+
+.modern-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+    /* Ensure it doesn't squish too much */
+}
+
+.modern-table td {
+    padding: 1.2rem 1rem;
+    border-bottom: 1px solid #eee;
+    color: #555;
+    font-size: 1.05rem;
+}
+
+.modern-table tr:last-child td {
+    border-bottom: none;
+}
+
+.modern-table tr:hover {
+    background-color: #f9fbff;
+}
+
+.table-label {
+    width: 30%;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.table-value {
+    color: #333;
+}
