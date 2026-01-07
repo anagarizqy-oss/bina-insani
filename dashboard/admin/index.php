@@ -94,6 +94,9 @@ $csrf_token = generate_token();
             <a href="kelola_kelas.php" class="menu-item">
                 <i class="fas fa-school"></i> <span>Kelola Kelas</span>
             </a>
+            <a href="kelola_jadwal.php" class="menu-item">
+                <i class="fas fa-calendar-alt"></i> <span>Kelola Jadwal</span>
+            </a>
             <a href="kelola_berita.php" class="menu-item">
                 <i class="fas fa-newspaper"></i> <span>Kelola Berita</span>
             </a>

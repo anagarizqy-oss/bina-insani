@@ -24,8 +24,8 @@ if (isset($_POST['tambah_kelas'])) {
 
         if (empty($nama_kelas)) {
             $message = "<div class='alert error'>Nama kelas tidak boleh kosong.</div>";
-        } elseif (!preg_match('/^(X|XI|XII)\s(IPA|IPS|BAHASA)\s[0-9]+$/', $nama_kelas)) {
-            $message = "<div class='alert error'>Format salah. Gunakan: Tingkat Jurusan Nomor (Contoh: X IPA 1).</div>";
+        } elseif (!preg_match('/^(X|XI|XII)\s[A-Z]$/', $nama_kelas)) {
+            $message = "<div class='alert error'>Format salah. Gunakan: Tingkat Huruf (Contoh: X A, XII B).</div>";
         } else {
             try {
                 $stmt = $pdo->prepare("INSERT INTO kelas (nama_kelas) VALUES (?)");
@@ -68,8 +68,8 @@ if (isset($_POST['edit_kelas'])) {
         $id = (int)$_POST['id'];
         $nama_kelas = strtoupper(clean($_POST['nama_kelas']));
 
-        if (!preg_match('/^(X|XI|XII)\s(IPA|IPS|BAHASA)\s[0-9]+$/', $nama_kelas)) {
-            $_SESSION['error_message'] = "Format salah. Gunakan: Tingkat Jurusan Nomor (Contoh: X IPA 1).";
+        if (!preg_match('/^(X|XI|XII)\s[A-Z]$/', $nama_kelas)) {
+            $_SESSION['error_message'] = "Format salah. Gunakan: Tingkat Huruf (Contoh: X A, XII B).";
             header("Location: kelola_kelas.php");
             exit;
         }
@@ -87,7 +87,12 @@ if (isset($_POST['edit_kelas'])) {
 }
 
 // Ambil data kelas
-$kelas_list = $pdo->query("SELECT * FROM kelas ORDER BY nama_kelas ASC");
+$kelas_list = $pdo->query("
+    SELECT k.*, g.nama_lengkap AS nama_wali
+    FROM kelas k
+    LEFT JOIN guru g ON k.wali_kelas_id = g.id
+    ORDER BY k.nama_kelas ASC
+");
 $csrf_token = generate_token();
 ?>
 <!DOCTYPE html>
@@ -115,6 +120,7 @@ $csrf_token = generate_token();
             <a href="data_siswa.php" class="menu-item"><i class="fas fa-user-graduate"></i> <span>Data Siswa</span></a>
             <a href="data_guru.php" class="menu-item"><i class="fas fa-chalkboard-teacher"></i> <span>Data Guru</span></a>
             <a href="kelola_kelas.php" class="menu-item active"><i class="fas fa-school"></i> <span>Kelola Kelas</span></a>
+            <a href="kelola_jadwal.php" class="menu-item"><i class="fas fa-calendar-alt"></i> <span>Kelola Jadwal</span></a>
             <a href="kelola_berita.php" class="menu-item"><i class="fas fa-newspaper"></i> <span>Kelola Berita</span></a>
             <a href="kelola_ekstrakurikuler.php" class="menu-item"><i class="fas fa-futbol"></i> <span>Ekstrakurikuler</span></a>
             <a href="masukan.php" class="menu-item"><i class="fas fa-envelope-open-text"></i> <span>Masukan & Saran</span></a>
@@ -141,8 +147,8 @@ $csrf_token = generate_token();
             <form method="POST" style="margin-top: 1rem; display: flex; gap: 10px; align-items: flex-start;">
                 <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
                 <div style="flex: 1;">
-                    <input type="text" name="nama_kelas" placeholder="Nama Kelas (Contoh: XII IPA 1)" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
-                    <small style="color: #666; display: block; margin-top: 5px;">Format wajib: Tingkat Jurusan Nomor (ex: X IPA 1, XI IPS 2)</small>
+                    <input type="text" name="nama_kelas" placeholder="Nama Kelas (Contoh: XII A)" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    <small style="color: #666; display: block; margin-top: 5px;">Format wajib: Tingkat Huruf (ex: X A, XI B)</small>
                 </div>
                 <button type="submit" name="tambah_kelas" style="background: #2575fc; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; height: fit-content;">
                     <i class="fas fa-plus"></i> Tambah
@@ -158,6 +164,7 @@ $csrf_token = generate_token();
                         <tr style="background: #f8f9fa;">
                             <th style="padding: 12px; border-bottom: 2px solid #ddd; text-align: left;">No</th>
                             <th style="padding: 12px; border-bottom: 2px solid #ddd; text-align: left;">Nama Kelas</th>
+                            <th style="padding: 12px; border-bottom: 2px solid #ddd; text-align: left;">Wali Kelas</th>
                             <th style="padding: 12px; border-bottom: 2px solid #ddd; text-align: center; width: 150px;">Aksi</th>
                         </tr>
                     </thead>
@@ -166,25 +173,32 @@ $csrf_token = generate_token();
                             <?php $no = 1;
                             while ($row = $kelas_list->fetch()): ?>
                                 <tr style="border-bottom: 1px solid #eee;">
-                                    <td style="padding: 12px;"><?= $no++ ?></td>
-                                    <td style="padding: 12px;">
-                                        <form method="POST" style="display: flex; gap: 5px;">
-                                            <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
-                                            <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                                            <input type="text" name="nama_kelas" value="<?= htmlspecialchars($row['nama_kelas']) ?>" required style="padding: 5px; border: 1px solid #ddd; border-radius: 4px;">
-                                            <button type="submit" name="edit_kelas" style="background: #4caf50; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Simpan</button>
-                                        </form>
+                                    <td style="padding: 12px; vertical-align: middle;"><?= $no++ ?></td>
+                                    <td style="padding: 12px; vertical-align: middle;">
+                                        <?= htmlspecialchars($row['nama_kelas']) ?>
                                     </td>
-                                    <td style="padding: 12px; text-align: center;">
-                                        <a href="?hapus=<?= $row['id'] ?>" onclick="return confirm('Yakin ingin menghapus kelas ini?')" style="color: #e53935; text-decoration: none;">
-                                            <i class="fas fa-trash"></i> Hapus
-                                        </a>
+                                    <td style="padding: 12px; vertical-align: middle;">
+                                        <?php if (!empty($row['nama_wali'])): ?>
+                                            <?= htmlspecialchars($row['nama_wali']) ?>
+                                        <?php else: ?>
+                                            <span style="color: #666; font-style: italic;">Belum ditentukan</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td style="padding: 12px; text-align: center; vertical-align: middle;">
+                                        <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+                                            <a href="detail_kelas.php?id=<?= $row['id'] ?>" style="color: #2575fc; text-decoration: none; display: flex; align-items: center; gap: 5px;">
+                                                <i class="fas fa-info-circle"></i> Detail
+                                            </a>
+                                            <a href="?hapus=<?= $row['id'] ?>" onclick="return confirm('Yakin ingin menghapus kelas ini?')" style="color: #e53935; text-decoration: none; display: flex; align-items: center; gap: 5px;">
+                                                <i class="fas fa-trash"></i> Hapus
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="3" style="text-align: center; padding: 20px; color: #666;">Belum ada data kelas.</td>
+                                <td colspan="4" style="text-align: center; padding: 20px; color: #666;">Belum ada data kelas.</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>

@@ -8,7 +8,13 @@ must_be(['admin']);
 // Assuming table name is 'guru'
 $guru_list = [];
 try {
-    $stmt = $pdo->query("SELECT g.*, u.username FROM guru g JOIN users u ON g.user_id = u.id ORDER BY g.nama_lengkap ASC");
+    $stmt = $pdo->query("
+        SELECT g.*, u.username, k.nama_kelas AS wali_kelas
+        FROM guru g
+        JOIN users u ON g.user_id = u.id
+        LEFT JOIN kelas k ON k.wali_kelas_id = g.id
+        ORDER BY g.nama_lengkap ASC
+    ");
     $guru_list = $stmt->fetchAll();
 } catch (PDOException $e) {
     $error = "Gagal mengambil data guru: " . $e->getMessage();
@@ -85,6 +91,9 @@ if (isset($_GET['delete'])) {
             <a href="kelola_kelas.php" class="menu-item">
                 <i class="fas fa-school"></i> <span>Kelola Kelas</span>
             </a>
+            <a href="kelola_jadwal.php" class="menu-item">
+                <i class="fas fa-calendar-alt"></i> <span>Kelola Jadwal</span>
+            </a>
             <a href="kelola_berita.php" class="menu-item">
                 <i class="fas fa-newspaper"></i> <span>Kelola Berita</span>
             </a>
@@ -147,6 +156,7 @@ if (isset($_GET['delete'])) {
                                 <th>NUPTK</th>
                                 <th>Nama Lengkap</th>
                                 <th>Mata Pelajaran</th>
+                                <th>Wali Kelas</th>
                                 <th>Username</th>
                                 <th>Password</th>
                                 <th>Aksi</th>
@@ -160,6 +170,15 @@ if (isset($_GET['delete'])) {
                                     <td><?= htmlspecialchars($row['nuptk'] ?? '-') ?></td>
                                     <td><?= htmlspecialchars($row['nama_lengkap'] ?? '-') ?></td>
                                     <td><?= htmlspecialchars($row['mata_pelajaran'] ?? '-') ?></td>
+                                    <td>
+                                        <?php if (!empty($row['wali_kelas'])): ?>
+                                            <span style="background: #e3f2fd; color: #1565c0; padding: 3px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: 500;">
+                                                <?= htmlspecialchars($row['wali_kelas']) ?>
+                                            </span>
+                                        <?php else: ?>
+                                            <span style="color: #999;">-</span>
+                                        <?php endif; ?>
+                                    </td>
                                     <td><strong><?= htmlspecialchars($row['username']) ?></strong></td>
                                     <td><code><?= htmlspecialchars($row['password_plain']) ?></code></td>
                                     <td>
