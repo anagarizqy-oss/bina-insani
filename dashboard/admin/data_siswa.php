@@ -8,7 +8,13 @@ must_be(['admin']);
 // Assuming table name is 'siswa'
 $siswa_list = [];
 try {
-    $stmt = $pdo->query("SELECT s.*, u.username FROM siswa s JOIN users u ON s.user_id = u.id ORDER BY s.nama_lengkap ASC");
+    $stmt = $pdo->query("
+        SELECT s.*, u.username, k.nama_kelas 
+        FROM siswa s 
+        JOIN users u ON s.user_id = u.id 
+        LEFT JOIN kelas k ON s.kelas_id = k.id 
+        ORDER BY k.nama_kelas ASC, s.nama_lengkap ASC
+    ");
     $siswa_list = $stmt->fetchAll();
 } catch (PDOException $e) {
     $error = "Gagal mengambil data siswa: " . $e->getMessage();
@@ -162,7 +168,7 @@ if (isset($_GET['delete'])) {
                                     <td><?= $no++ ?></td>
                                     <td><?= htmlspecialchars($row['nis'] ?? '-') ?></td>
                                     <td><?= htmlspecialchars($row['nama_lengkap'] ?? '-') ?></td>
-                                    <td><?= htmlspecialchars(($row['kelas'] ?? '') . ' ' . ($row['jurusan'] ?? '') . ' ' . ($row['nomor_kelas'] ?? '')) ?></td>
+                                    <td><?= htmlspecialchars($row['nama_kelas'] ?? '-') ?></td>
                                     <td><strong><?= htmlspecialchars($row['username']) ?></strong></td>
                                     <td><code><?= htmlspecialchars($row['password_plain']) ?></code></td>
                                     <td>
