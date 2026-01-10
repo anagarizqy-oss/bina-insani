@@ -176,12 +176,28 @@ a {
 }
 
 /* === TABLES & CARDS === */
+.card-flex {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
 .card {
     background: white;
     padding: 1.5rem;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     margin-bottom: 1.5rem;
+}
+
+.absensi-card {
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 table {

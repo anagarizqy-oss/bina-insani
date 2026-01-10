@@ -125,16 +125,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <form method="POST">
                 <label>NUPTK *</label>
-                <input type="number" name="nuptk" required placeholder="16 digit NUPTK" maxlength="16" value="<?= $is_edit ? htmlspecialchars($data['nuptk']) : '' ?>">
+                <input type="number" name="nuptk" required placeholder="16 digit NUPTK" maxlength="16" value="<?= $is_edit ? htmlspecialchars(htmlspecialchars_decode($data['nuptk'])) : '' ?>">
 
                 <label>Nama Lengkap *</label>
-                <input type="text" name="nama_lengkap" placeholder="Contoh: Budi Santoso, S.Pd." required value="<?= $is_edit ? htmlspecialchars($data['nama_lengkap']) : '' ?>">
+                <input type="text" name="nama_lengkap" placeholder="Contoh: Budi Santoso, S.Pd." required value="<?= $is_edit ? htmlspecialchars(htmlspecialchars_decode($data['nama_lengkap'])) : '' ?>">
 
                 <label>Mata Pelajaran *</label>
                 <select name="mata_pelajaran" required>
                     <option value="">-- Pilih Mata Pelajaran --</option>
                     <?php
-                    $mapel_list = ["Matematika", "Bahasa Indonesia", "Bahasa Inggris", "Fisika", "Kimia", "Biologi", "Sejarah", "Geografi", "Ekonomi", "Sosiologi", "Penjaskes", "Seni Budaya", "TIK", "PKn", "PAI"];
+                    $mapel_list = [
+                        "PAIBP",
+                        "Pendidikan Pancasila",
+                        "Bahasa Indonesia",
+                        "Matematika",
+                        "Matematika Tingkat Lanjut",
+                        "Biologi",
+                        "Fisika",
+                        "Kimia",
+                        "Ekonomi",
+                        "Geografi",
+                        "Sosiologi",
+                        "Sejarah",
+                        "Bahasa Inggris",
+                        "Bahasa Inggris Tingkat Lanjut",
+                        "Seni Budaya",
+                        "PJOK",
+                        "Informatika",
+                        "Prakarya dan Kewirausahaan",
+                        "Bahasa Jawa",
+                        "BK/BP"
+                    ];
+                    sort($mapel_list);
                     foreach ($mapel_list as $m) :
                         $selected = ($is_edit && $data['mata_pelajaran'] == $m) ? 'selected' : '';
                         echo "<option value=\"$m\" $selected>$m</option>";
